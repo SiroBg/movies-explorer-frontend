@@ -1,0 +1,40 @@
+.header {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1280px;
+  min-height: 74px;
+  margin: 0 auto;
+  padding: 0 70px;
+}
+
+.header__logo {
+  display: block;
+  width: 38px;
+  height: 38px;
+}
+
+.header__link:hover {
+  opacity: 0.6;
+}
+
+.header__link:active {
+  opacity: 0.8;
+}
+
+.header__link_current {
+  pointer-events: none;
+}
+
+@media all and (max-width: 1279px) {
+  .header {
+    padding: 0 30px;
+  }
+}
+
+@media all and (max-width: 767px) {
+  .header {
+    padding: 0 14px;
+  }
+}

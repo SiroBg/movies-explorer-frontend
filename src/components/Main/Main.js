@@ -1,5 +1,12 @@
+import Header from '../Header/Header';
+
 function Main() {
-  return <div></div>;
+  return (
+    <>
+      <Header />
+      <main></main>
+    </>
+  );
 }
 
 export default Main;

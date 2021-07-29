@@ -1,5 +1,12 @@
+import Header from '../Header/Header';
+
 function SavedMovies() {
-  return <div></div>;
+  return (
+    <>
+      <Header />
+      <main></main>
+    </>
+  );
 }
 
 export default SavedMovies;

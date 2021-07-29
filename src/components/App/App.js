@@ -18,9 +18,6 @@ function App() {
         <Route path="/signup">
           <Register />
         </Route>
-        <Route path="/">
-          <Main />
-        </Route>
         <Route path="/movies">
           <Movies />
         </Route>
@@ -29,6 +26,9 @@ function App() {
         </Route>
         <Route path="/profile">
           <Profile />
+        </Route>
+        <Route exact path="/">
+          <Main />
         </Route>
       </Switch>
     </div>
