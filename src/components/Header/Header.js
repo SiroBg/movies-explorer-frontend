@@ -1,5 +1,6 @@
 import headerLogo from '../../images/header__logo.svg';
 import { NavLink } from 'react-router-dom';
+import Navigation from '../Navigation/Navigation';
 
 function Header() {
   return (
@@ -16,6 +17,7 @@ function Header() {
           alt="Логотип movies-explorer"
         />
       </NavLink>
+      <Navigation />
     </header>
   );
 }

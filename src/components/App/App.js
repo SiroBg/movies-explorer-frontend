@@ -1,4 +1,3 @@
-import './App.css';
 import React, { useEffect, useState } from 'react';
 import { useHistory, Redirect, Route, Switch } from 'react-router-dom';
 import Main from '../Main/Main';
@@ -10,7 +9,7 @@ import Register from '../Register/Register';
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <Switch>
         <Route path="/signin">
           <Login />

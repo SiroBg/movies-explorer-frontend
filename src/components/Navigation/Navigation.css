@@ -1,0 +1,89 @@
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navigation__link {
+  margin-right: 20px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  text-decoration: none;
+  color: #000;
+}
+
+.navigation__link_active {
+  font-weight: 400;
+  pointer-events: none;
+}
+
+.navigation__profile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 30px;
+  min-width: 100px;
+  margin-left: 50px;
+}
+
+.navigation__profile-link {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-decoration: none;
+  color: #000;
+}
+
+.navigation__profile-link_active {
+  font-weight: 400;
+  pointer-events: none;
+}
+
+.navigation__profile-link::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  content: '';
+  display: block;
+  width: 26px;
+  height: 30px;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  background-image: url(../../images/navigation__profile-logo.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: 11.5px 14px;
+}
+
+.navigation__auth-link {
+  margin-right: 30px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-decoration: none;
+  color: #000;
+}
+
+.navigation__auth-link:last-of-type {
+  margin-right: 0;
+}
+
+.navigation__auth-link_type_signin {
+  display: block;
+  padding: 8px 20px;
+  background-color: #2be080;
+  border-radius: 3px;
+}
+
+.navigation__link:hover,
+.navigation__profile-link:hover,
+.navigation__auth-link:hover {
+  opacity: 0.6;
+}
+
+.navigation__link:active,
+.navigation__profile-link,
+.navigation__auth-link:active {
+  opacity: 0.8;
+}
