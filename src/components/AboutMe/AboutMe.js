@@ -21,25 +21,28 @@ function AboutMe() {
           </p>
           <ul className="about-me__socials-list">
             <li className="about-me__socials-item">
-              <Link
-                to="https://github.com/SiroBg"
+              <a
+                href="https://github.com/SiroBg"
                 className="about-me__social-link"
               >
                 Github
-              </Link>
+              </a>
             </li>
             <li className="about-me__socials-item">
-              <Link to="t.me/BorisGlinskiy" className="about-me__social-link">
+              <a
+                href="https://t.me/BorisGlinskiy"
+                className="about-me__social-link"
+              >
                 Telegram
-              </Link>
+              </a>
             </li>
             <li className="about-me__socials-item">
-              <Link
-                to="https://vk.com/id474318817"
+              <a
+                href="https://vk.com/id474318817"
                 className="about-me__social-link"
               >
                 VK
-              </Link>
+              </a>
             </li>
           </ul>
         </div>
