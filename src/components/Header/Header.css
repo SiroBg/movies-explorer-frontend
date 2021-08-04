@@ -1,12 +1,12 @@
 .header {
-  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1280px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1200px;
   min-height: 74px;
-  margin: 0 auto;
-  padding: 0 70px;
+  padding: 0 30px;
 }
 
 .header__logo {
@@ -25,12 +25,6 @@
 
 .header__link_current {
   pointer-events: none;
-}
-
-@media all and (max-width: 1279px) {
-  .header {
-    padding: 0 30px;
-  }
 }
 
 @media all and (max-width: 767px) {

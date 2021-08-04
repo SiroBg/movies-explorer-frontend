@@ -93,7 +93,7 @@
   opacity: 0.8;
 }
 
-@media all and (max-width: 1279px) {
+@media all and (max-width: 1080px) {
   .navigation_opened {
     position: fixed;
     top: 0;

@@ -45,7 +45,7 @@
   transform: translateY(-50%) rotate(-45deg);
 }
 
-@media all and (max-width: 1279px) {
+@media all and (max-width: 1080px) {
   .burger {
     display: block;
   }
