@@ -95,6 +95,10 @@
   transition: transform 0.4s ease;
 }
 
+.search-form__checkbox:focus + .search-form__checkbox-slider {
+  box-shadow: 0 0 5px 1px #000;
+}
+
 .search-form__checkbox:checked + .search-form__checkbox-slider::before {
   transform: translateX(16px);
 }
