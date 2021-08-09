@@ -55,7 +55,33 @@
   background-image: url(../../images/movies-card__button_type_saved.svg);
 }
 
+.movies-card__button_type_saved-movies {
+  position: relative;
+  background-image: none;
+}
+
+.movies-card__button_type_saved-movies::before,
+.movies-card__button_type_saved-movies::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 2px;
+  margin: -1px 0 0 -4px;
+  background-color: #000;
+}
+
+.movies-card__button_type_saved-movies::before {
+  transform: rotate(45deg);
+}
+
+.movies-card__button_type_saved-movies::after {
+  transform: rotate(-45deg);
+}
+
 .movies-card__image {
+  display: block;
   object-fit: cover;
   object-position: center;
   max-width: 364px;

@@ -10,6 +10,9 @@ function Movies() {
       <main className="movies">
         <SearchForm />
         <MoviesCardList />
+        <button className="movies__button" type="button">
+          Ещё
+        </button>
       </main>
       <Footer />
     </>
