@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import closeKey from '../../utils/constants';
 
-function Navigation(isLoggedIn) {
+function Navigation({ isLoggedIn = false }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   function closeNavOnOverlay(e) {

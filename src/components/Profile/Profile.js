@@ -1,10 +1,38 @@
 import Header from '../Header/Header';
+import FormError from '../FormError/FormError';
+import ResponseError from '../ResponseError/ResponseError';
 
-function Profile() {
+function Profile({ name = 'Борис', email = 'borisusik@yandex.ru' }) {
   return (
     <>
       <Header />
-      <main></main>
+      <main className="profile">
+        <h1 className="profile__title">Привет, {name}!</h1>
+        <form className="profile__form" method="post" noValidate>
+          <label className="profile__label">
+            Имя
+            <input
+              className="profile__input"
+              type="text"
+              minLength="2"
+              maxLength="30"
+            />
+            <FormError errorText="текст ошибки валидации" isActive />
+          </label>
+          <label className="profile__label">
+            Почта
+            <input className="profile__input" type="email" />
+            <FormError errorText="текст ошибки" />
+          </label>
+          <ResponseError isActive />
+          <button className="profile__submit" type="submit">
+            Редактировать
+          </button>
+        </form>
+        <button className="profile__logout-button" type="button">
+          Выйти из аккаунта
+        </button>
+      </main>
     </>
   );
 }

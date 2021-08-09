@@ -1,5 +1,11 @@
+import AuthHeader from '../AuthHeader/AuthHeader';
+
 function Login() {
-  return <div></div>;
+  return (
+    <main>
+      <AuthHeader title="Рады видеть!" />
+    </main>
+  );
 }
 
 export default Login;

@@ -1,0 +1,40 @@
+.auth-header__link {
+  display: block;
+  margin-bottom: 40px;
+}
+
+.auth-header__logo {
+  display: block;
+  width: 38px;
+  height: 38px;
+}
+
+.auth-header__link:hover {
+  opacity: 0.6;
+}
+
+.auth-header__link:active {
+  opacity: 0.8;
+}
+
+.auth-header__title {
+  margin: 0 0 40px;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 29px;
+}
+
+@media all and (max-width: 767px) {
+  .auth-header__link {
+    margin-bottom: 50px;
+  }
+
+  .auth-header__logo {
+    margin: 0 auto;
+  }
+
+  .auth-header__title {
+    margin-bottom: 80px;
+    text-align: center;
+  }
+}
