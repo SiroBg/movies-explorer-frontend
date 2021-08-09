@@ -1,4 +1,4 @@
-function MoviesCard({ movie, cardType }) {
+function MoviesCard({ movie, cardType, isSaved }) {
   return (
     <li className="movies-card">
       <div className="movies-card__container">
@@ -8,11 +8,11 @@ function MoviesCard({ movie, cardType }) {
         </span>
         <button
           type="button"
-          className={
+          className={`movies-card__button ${
             cardType === 'savedMovies'
-              ? 'movies-card__button movies-card__button_type_saved-movies'
-              : 'movies-card__button movies-card__button_type_saved'
-          }
+              ? 'movies-card__button_type_saved-movies'
+              : ''
+          } ${isSaved ? 'movies-card__button_type_saved' : ''}`}
         />
       </div>
       <img
