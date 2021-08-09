@@ -3,7 +3,7 @@
 @import url(./components/App/App.css);
 @import url(./components/Header/Header.css);
 @import url(./components/Navigation/Navigation.css);
-@import url(./components/Navigation/burger.css);
+@import url(./components/Burger/Burger.css);
 @import url(./components/Main/Main.css);
 @import url(./components/Promo/Promo.css);
 @import url(./components/NavTab/NavTab.css);
@@ -23,3 +23,8 @@
 @import url(./components/Register/Register.css);
 @import url(./components/AuthHeader/AuthHeader.css);
 @import url(./components/FormField/FormField.css);
+@import url(./components/AuthSubmit/AuthSubmit.css);
+@import url(./components/Login/Login.css);
+@import url(./components/NotFoundPage/NotFoundPage.css);
+@import url(./components/MoviesNotFound/MoviesNotFound.css);
+@import url(./components/Preloader/Preloader.css);

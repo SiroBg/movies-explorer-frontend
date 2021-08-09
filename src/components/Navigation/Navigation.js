@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import closeKey from '../../utils/constants';
+import Burger from '../Burger/Burger';
 
-function Navigation({ isLoggedIn = false }) {
+function Navigation({ isLoggedIn = true }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   function closeNavOnOverlay(e) {
@@ -77,14 +78,7 @@ function Navigation({ isLoggedIn = false }) {
               </NavLink>
             </div>
           </nav>
-          <div
-            className={
-              isNavOpen ? 'burger active navigation__burger-active' : 'burger'
-            }
-            onClick={toggleNav}
-          >
-            <div className="burger__bar"></div>
-          </div>
+          <Burger isNavOpen={isNavOpen} toggleNav={toggleNav} />
         </div>
       ) : (
         <nav className="navigation__auth-menu">

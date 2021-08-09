@@ -8,7 +8,7 @@ function Profile({ name = 'Борис', email = 'borisusik@yandex.ru' }) {
       <Header />
       <main className="profile">
         <h1 className="profile__title">Привет, {name}!</h1>
-        <form className="profile__form" method="post" noValidate>
+        <form className="profile__form" method="post">
           <label className="profile__label">
             Имя
             <input
@@ -16,12 +16,19 @@ function Profile({ name = 'Борис', email = 'borisusik@yandex.ru' }) {
               type="text"
               minLength="2"
               maxLength="30"
+              placeholder="Введите новое имя"
+              required
             />
             <FormError errorText="текст ошибки валидации" isActive />
           </label>
           <label className="profile__label">
             Почта
-            <input className="profile__input" type="email" />
+            <input
+              className="profile__input"
+              type="email"
+              placeholder="Введите новый e-mail"
+              required
+            />
             <FormError errorText="текст ошибки" />
           </label>
           <ResponseError isActive />

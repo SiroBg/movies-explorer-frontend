@@ -1,6 +1,12 @@
 import FormError from '../FormError/FormError';
 
-function FormField({ fieldName, fieldType, minLength, maxLength }) {
+function FormField({
+  fieldName,
+  fieldType,
+  placeholder,
+  minLength,
+  maxLength,
+}) {
   return (
     <label className="form-field">
       {fieldName}
@@ -9,6 +15,8 @@ function FormField({ fieldName, fieldType, minLength, maxLength }) {
         type={fieldType}
         minLength={minLength}
         maxLength={maxLength}
+        placeholder={placeholder}
+        required
       />
       <FormError errorText="текст ошибки валидации" />
     </label>

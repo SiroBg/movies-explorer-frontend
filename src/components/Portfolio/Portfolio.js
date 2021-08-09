@@ -7,6 +7,8 @@ function Portfolio() {
           <a
             href="https://github.com/SiroBg/how-to-learn"
             className="portfolio__link"
+            target="_blank"
+            rel="noreferrer"
           >
             Статичный сайт
           </a>
@@ -15,6 +17,8 @@ function Portfolio() {
           <a
             href="https://github.com/SiroBg/russian-travel"
             className="portfolio__link"
+            target="_blank"
+            rel="noreferrer"
           >
             Адаптивный сайт
           </a>
@@ -23,6 +27,8 @@ function Portfolio() {
           <a
             href="https://github.com/SiroBg/react-mesto-api-full"
             className="portfolio__link"
+            target="_blank"
+            rel="noreferrer"
           >
             Одностраничное приложение
           </a>

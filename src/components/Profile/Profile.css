@@ -39,11 +39,12 @@
   font-weight: 400;
   text-align: right;
   border: none;
+  border-bottom: 1px solid transparent;
   outline: none;
 }
 
 .profile__input:focus {
-  border-bottom: 1px solid #3456f3;
+  border-bottom-color: #3456f3;
 }
 
 .profile__submit {

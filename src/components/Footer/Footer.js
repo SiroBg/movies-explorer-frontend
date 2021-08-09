@@ -10,17 +10,29 @@ function Footer() {
           <a
             href="https://praktikum.yandex.ru"
             className="footer__socials-link"
+            target="_blank"
+            rel="noreferrer"
           >
             Яндекс.Практикум
           </a>
         </li>
         <li className="footer__socials-item">
-          <a href="https://github.com/SiroBg" className="footer__socials-link">
+          <a
+            href="https://github.com/SiroBg"
+            className="footer__socials-link"
+            target="_blank"
+            rel="noreferrer"
+          >
             Github
           </a>
         </li>
         <li className="footer__socials-item">
-          <a href="https://t.me/BorisGlinskiy" className="footer__socials-link">
+          <a
+            href="https://t.me/BorisGlinskiy"
+            className="footer__socials-link"
+            target="_blank"
+            rel="noreferrer"
+          >
             Telegram
           </a>
         </li>

@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import SectionTitle from '../SectionTitle/SectionTitle';
 import myPhoto from '../../images/about-me__image.jpg';
 import Portfolio from '../Portfolio/Portfolio';
@@ -24,6 +23,8 @@ function AboutMe() {
               <a
                 href="https://github.com/SiroBg"
                 className="about-me__social-link"
+                target="_blank"
+                rel="noreferrer"
               >
                 Github
               </a>
@@ -32,6 +33,8 @@ function AboutMe() {
               <a
                 href="https://t.me/BorisGlinskiy"
                 className="about-me__social-link"
+                target="_blank"
+                rel="noreferrer"
               >
                 Telegram
               </a>
@@ -40,6 +43,8 @@ function AboutMe() {
               <a
                 href="https://vk.com/id474318817"
                 className="about-me__social-link"
+                target="_blank"
+                rel="noreferrer"
               >
                 VK
               </a>
