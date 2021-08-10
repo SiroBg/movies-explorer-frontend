@@ -1,3 +1,12 @@
+import stonesImg from '../images/movies-temp/stones_in_exile_b2f1b8f4b7.jpeg';
+import allTomorrow from '../images/movies-temp/all_tommoros_parties_33a125248d.jpeg';
+import bassWeight from '../images/movies-temp/zagruzhennoe_113f557116.jpeg';
+import taqwakor from '../images/movies-temp/taqwacore2_2f487d2e74.jpeg';
+import blur from '../images/movies-temp/blur_a43fcf463d.jpeg';
+import favela from '../images/movies-temp/881707734_640_d6a3a43358.jpeg';
+import posters from '../images/movies-temp/posters_came_from_the_walls_2009_001_posters_180fe1a19f.jpeg';
+import soul from '../images/movies-temp/images_5bfcbf36e6.jpeg';
+
 const defaultMovies = [
   {
     id: 1,
@@ -45,7 +54,7 @@ const defaultMovies = [
       ext: '.jpeg',
       mime: 'image/jpeg',
       size: 25.53,
-      url: '/uploads/stones_in_exile_b2f1b8f4b7.jpeg',
+      url: stonesImg,
       previewUrl: null,
       provider: 'local',
       provider_metadata: null,
@@ -99,7 +108,7 @@ const defaultMovies = [
       ext: '.jpeg',
       mime: 'image/jpeg',
       size: 67.06,
-      url: '/uploads/all_tommoros_parties_33a125248d.jpeg',
+      url: allTomorrow,
       previewUrl: null,
       provider: 'local',
       provider_metadata: null,
@@ -143,7 +152,7 @@ const defaultMovies = [
       ext: '.jpeg',
       mime: 'image/jpeg',
       size: 21.07,
-      url: '/uploads/blur_a43fcf463d.jpeg',
+      url: blur,
       previewUrl: null,
       provider: 'local',
       provider_metadata: null,
@@ -187,7 +196,7 @@ const defaultMovies = [
       ext: '.jpeg',
       mime: 'image/jpeg',
       size: 7.01,
-      url: '/uploads/zagruzhennoe_113f557116.jpeg',
+      url: bassWeight,
       previewUrl: null,
       provider: 'local',
       provider_metadata: null,
@@ -241,7 +250,7 @@ const defaultMovies = [
       ext: '.jpeg',
       mime: 'image/jpeg',
       size: 24.89,
-      url: '/uploads/taqwacore2_2f487d2e74.jpeg',
+      url: taqwakor,
       previewUrl: null,
       provider: 'local',
       provider_metadata: null,
@@ -295,7 +304,7 @@ const defaultMovies = [
       ext: '.jpeg',
       mime: 'image/jpeg',
       size: 23.67,
-      url: '/uploads/881707734_640_d6a3a43358.jpeg',
+      url: favela,
       previewUrl: null,
       provider: 'local',
       provider_metadata: null,
@@ -359,7 +368,7 @@ const defaultMovies = [
       ext: '.jpeg',
       mime: 'image/jpeg',
       size: 153.63,
-      url: '/uploads/posters_came_from_the_walls_2009_001_posters_180fe1a19f.jpeg',
+      url: posters,
       previewUrl: null,
       provider: 'local',
       provider_metadata: null,
@@ -403,7 +412,7 @@ const defaultMovies = [
       ext: '.jpeg',
       mime: 'image/jpeg',
       size: 10.06,
-      url: '/uploads/images_5bfcbf36e6.jpeg',
+      url: soul,
       previewUrl: null,
       provider: 'local',
       provider_metadata: null,

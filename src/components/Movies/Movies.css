@@ -34,7 +34,7 @@
   }
 }
 
-@media all and (max-width: 1279px) {
+@media all and (max-width: 767px) {
   .movies__button {
     max-width: 300px;
   }

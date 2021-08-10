@@ -17,7 +17,7 @@ function MoviesCard({ movie, cardType, isSaved }) {
       </div>
       <img
         className="movies-card__image"
-        src={`https://api.nomoreparties.co${movie.image.url}`}
+        src={movie.image.url}
         alt={movie.nameRU}
       />
     </li>

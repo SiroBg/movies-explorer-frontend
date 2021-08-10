@@ -1,11 +1,12 @@
 function SearchForm() {
   return (
-    <form className="search-form" method="get" noValidate>
+    <form className="search-form" method="get">
       <div className="search-form__container">
         <input
           type="text"
           className="search-form__search-field"
           placeholder="Фильм"
+          required
         />
         <button type="submit" className="search-form__button">
           Найти

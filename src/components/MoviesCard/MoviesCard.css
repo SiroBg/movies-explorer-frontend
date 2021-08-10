@@ -11,6 +11,7 @@
     'title button'
     'duration button';
   row-gap: 9px;
+  column-gap: 10px;
   justify-content: space-between;
   padding: 14px;
 }
