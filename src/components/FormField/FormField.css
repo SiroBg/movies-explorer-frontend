@@ -1,0 +1,33 @@
+.form-field {
+  position: relative;
+  display: block;
+  margin-bottom: 20px;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12px;
+  color: #a0a0a0;
+}
+
+.form-field:last-of-type {
+  margin-bottom: 0;
+}
+
+.form-field__input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 15px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #000;
+  background-color: #f9f9f9;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  outline: none;
+}
+
+.form-field__input:focus {
+  border-color: #3456f3;
+}

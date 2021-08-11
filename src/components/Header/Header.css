@@ -1,0 +1,34 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1200px;
+  min-height: 74px;
+  padding: 0 30px;
+}
+
+.header__logo {
+  display: block;
+  width: 38px;
+  height: 38px;
+}
+
+.header__link:hover {
+  opacity: 0.6;
+}
+
+.header__link:active {
+  opacity: 0.8;
+}
+
+.header__link_current {
+  pointer-events: none;
+}
+
+@media all and (max-width: 767px) {
+  .header {
+    padding: 0 14px;
+  }
+}
