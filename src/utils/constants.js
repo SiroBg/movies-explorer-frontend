@@ -1,3 +1,5 @@
 const closeKey = 'Escape';
+const baseUrl = 'https://api.nomoreparties.co';
+const shortMovieLength = 40;
 
-export default closeKey;
+export { baseUrl, closeKey, shortMovieLength };

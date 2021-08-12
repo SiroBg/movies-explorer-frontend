@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import closeKey from '../../utils/constants';
+import { closeKey } from '../../utils/constants';
 import Burger from '../Burger/Burger';
 
 function Navigation({ isLoggedIn = true }) {
