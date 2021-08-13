@@ -36,6 +36,10 @@ export default function useMovieSearch() {
     );
   }
 
+  function handleSearchResult() {
+    return shortMovieCheckBox ? filteredShortMovies : searchedMovies;
+  }
+
   return {
     searchedMovies,
     filteredShortMovies,
@@ -45,5 +49,6 @@ export default function useMovieSearch() {
     setShortMovieCheckbox,
     sortSearchedMovies,
     shortMovieCheckBox,
+    handleSearchResult,
   };
 }

@@ -31,16 +31,10 @@ function MoviesCardList({ getMovies, cardsType }) {
     }
   }
 
-  function handleSearchResult() {
-    return movieSearch.shortMovieCheckBox
-      ? movieSearch.filteredShortMovies
-      : movieSearch.searchedMovies;
-  }
-
   function renderMovies() {
     return (
       <ul className="movies-card-list">
-        {handleSearchResult().map((movie) => (
+        {movieSearch.handleSearchResult().map((movie) => (
           <MoviesCard key={movie.id} movie={movie} cardType={cardsType} />
         ))}
       </ul>
@@ -48,7 +42,7 @@ function MoviesCardList({ getMovies, cardsType }) {
   }
 
   function handleRenderMovies() {
-    return handleSearchResult().length === 0 || apiError ? (
+    return movieSearch.handleSearchResult().length === 0 || apiError ? (
       <MoviesNotFound apiError={apiError} />
     ) : (
       renderMovies()
