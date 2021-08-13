@@ -1,3 +1,5 @@
+import { baseUrl } from '../../utils/constants';
+
 function MoviesCard({ movie, cardType, isSaved }) {
   return (
     <li className="movies-card">
@@ -17,7 +19,7 @@ function MoviesCard({ movie, cardType, isSaved }) {
       </div>
       <img
         className="movies-card__image"
-        src={movie.image.url}
+        src={baseUrl + movie.image.url}
         alt={movie.nameRU}
       />
     </li>

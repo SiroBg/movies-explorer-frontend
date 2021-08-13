@@ -1,15 +1,18 @@
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import moviesApi from '../../utils/MoviesApi';
 
 function Movies() {
+  function getMovies() {
+    return moviesApi.getMovies();
+  }
+
   return (
     <>
       <Header />
       <main className="movies">
-        <SearchForm />
-        <MoviesCardList />
+        <MoviesCardList getMovies={getMovies} />
         <button className="movies__button" type="button">
           Ещё
         </button>

@@ -1,12 +1,17 @@
 import useFormAndValidation from '../../hooks/useFormValidation';
 import FormError from '../FormError/FormError';
 
-function SearchForm() {
+function SearchForm({ onSearch, onCheckbox }) {
   const formAndValidation = useFormAndValidation();
+
+  function handleCheckbox(e) {
+    onCheckbox(e.target.checked);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
     formAndValidation.setIsValid(e.target.checkValidity());
+    onSearch(formAndValidation.values);
   }
 
   return (
@@ -18,13 +23,13 @@ function SearchForm() {
     >
       <div className="search-form__container">
         <input
-          name="search"
+          name="searchValue"
           type="text"
           className="search-form__search-field"
           placeholder="Фильм"
           required
           onChange={formAndValidation.handleSearch}
-          value={formAndValidation.values.search || ''}
+          value={formAndValidation.values.searchValue || ''}
         />
         <FormError
           errorText="Нужно ввести ключевое слово"
@@ -39,8 +44,7 @@ function SearchForm() {
           name="shortMovie"
           type="checkbox"
           className="search-form__checkbox"
-          onChange={formAndValidation.handleCheckBox}
-          checked={formAndValidation.values.shortMovie || false}
+          onClick={handleCheckbox}
         />
         <span className="search-form__checkbox-slider"></span>
         Короткометражки
