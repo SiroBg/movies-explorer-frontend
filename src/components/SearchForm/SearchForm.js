@@ -30,6 +30,7 @@ function SearchForm({ onSearch, onCheckbox }) {
           required
           onChange={formAndValidation.handleSearch}
           value={formAndValidation.values.searchValue || ''}
+          autoComplete="off"
         />
         <FormError
           errorText="Нужно ввести ключевое слово"

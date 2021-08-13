@@ -5,7 +5,13 @@ import MoviesNotFound from '../MoviesNotFound/MoviesNotFound';
 import useMovieSearch from '../../hooks/useMovieSearch';
 import { useState } from 'react';
 
-function MoviesCardList({ getMovies, cardsType }) {
+function MoviesCardList({
+  getMovies,
+  cardsType,
+  moviesAmountToShow,
+  showMoreMovies,
+  handleMoviesToShow,
+}) {
   const [showResults, setShowResults] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState(false);
@@ -18,6 +24,7 @@ function MoviesCardList({ getMovies, cardsType }) {
       setIsLoading(true);
       getMovies()
         .then((res) => {
+          handleMoviesToShow();
           setShowResults(true);
           setApiError(false);
           movieSearch.sortSearchedMovies(res, searchValue);
@@ -31,10 +38,22 @@ function MoviesCardList({ getMovies, cardsType }) {
     }
   }
 
+  function renderMoviesToShow() {
+    const moviesToShow = movieSearch
+      .handleSearchResult()
+      .slice(0, moviesAmountToShow);
+    return moviesToShow;
+  }
+
   function renderMovies() {
+    const moviesToRender =
+      cardsType === 'searchMovies'
+        ? renderMoviesToShow()
+        : movieSearch.handleSearchResult();
+
     return (
       <ul className="movies-card-list">
-        {movieSearch.handleSearchResult().map((movie) => (
+        {moviesToRender.map((movie) => (
           <MoviesCard key={movie.id} movie={movie} cardType={cardsType} />
         ))}
       </ul>
@@ -49,6 +68,21 @@ function MoviesCardList({ getMovies, cardsType }) {
     );
   }
 
+  function renderLoadMoreButton() {
+    return (
+      movieSearch.handleSearchResult().length > moviesAmountToShow &&
+      !isLoading && (
+        <button
+          className="movies-card-list__button"
+          type="button"
+          onClick={showMoreMovies}
+        >
+          Ещё
+        </button>
+      )
+    );
+  }
+
   return (
     <>
       <SearchForm
@@ -57,6 +91,7 @@ function MoviesCardList({ getMovies, cardsType }) {
       />
       {isLoading && <Preloader />}
       {showResults && handleRenderMovies()}
+      {cardsType === 'searchMovies' && renderLoadMoreButton()}
     </>
   );
 }
