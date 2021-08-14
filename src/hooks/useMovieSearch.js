@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { shortMovieLength } from '../utils/constants';
+import { SHORT_MOVIE_LENGTH } from '../utils/constants';
 
 export default function useMovieSearch() {
   const [searchedMovies, setSearchedMoveis] = useState([]);
@@ -14,7 +14,7 @@ export default function useMovieSearch() {
   }
 
   function isShortMovie(movie) {
-    return movie.duration <= shortMovieLength;
+    return movie.duration <= SHORT_MOVIE_LENGTH;
   }
 
   function filterSearchedMovies(moviesArray, searchValue) {

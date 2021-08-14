@@ -1,4 +1,4 @@
-import { baseUrl } from '../../utils/constants';
+import { BASE_URL } from '../../utils/constants';
 
 function MoviesCard({ movie, cardType, isSaved }) {
   return (
@@ -19,7 +19,7 @@ function MoviesCard({ movie, cardType, isSaved }) {
       </div>
       <img
         className="movies-card__image"
-        src={baseUrl + movie.image.url}
+        src={BASE_URL + movie.image.url}
         alt={movie.nameRU}
       />
     </li>

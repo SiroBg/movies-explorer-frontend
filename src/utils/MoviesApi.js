@@ -1,4 +1,4 @@
-import { baseUrl } from './constants';
+import { BASE_URL } from './constants';
 
 class MoviesApi {
   constructor(baseUrl) {
@@ -21,6 +21,6 @@ class MoviesApi {
   }
 }
 
-const moviesApi = new MoviesApi(baseUrl);
+const moviesApi = new MoviesApi(BASE_URL);
 
 export default moviesApi;
