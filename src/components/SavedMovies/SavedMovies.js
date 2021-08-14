@@ -7,7 +7,7 @@ function SavedMovies() {
     <>
       <Header />
       <main className="movies">
-        <MoviesCardList cardsType="savedMovies" />
+        <MoviesCardList moviesType="savedMovies" />
       </main>
       <Footer />
     </>

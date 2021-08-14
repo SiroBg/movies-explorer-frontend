@@ -5,7 +5,7 @@ import MoviesNotFound from '../MoviesNotFound/MoviesNotFound';
 
 function MoviesCardList({
   searchedMovies,
-  cardsType,
+  moviesType,
   moviesAmountToShow,
   showMoreMovies,
   handleMoviesToShow,
@@ -34,12 +34,12 @@ function MoviesCardList({
 
   function renderMovies() {
     const moviesToRender =
-      cardsType === 'searchMovies' ? renderMoviesToShow() : searchedMovies;
+      moviesType === 'searchMovies' ? renderMoviesToShow() : searchedMovies;
 
     return (
       <ul className="movies-card-list">
         {moviesToRender.map((movie) => (
-          <MoviesCard key={movie.id} movie={movie} cardType={cardsType} />
+          <MoviesCard key={movie.id} movie={movie} moviesType={moviesType} />
         ))}
       </ul>
     );
@@ -73,11 +73,12 @@ function MoviesCardList({
       <SearchForm
         onSearch={onMovieSearch}
         onCheckbox={onShortMovieCheckbox}
-        cardsType={cardsType}
+        moviesType={moviesType}
+        isMovieListLoading={isMovieListLoading}
       />
       {isMovieListLoading && <Preloader />}
       {showResults && handleRenderMovies()}
-      {cardsType === 'searchMovies' && renderLoadMoreButton()}
+      {moviesType === 'searchMovies' && renderLoadMoreButton()}
     </>
   );
 }

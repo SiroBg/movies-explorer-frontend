@@ -1,6 +1,6 @@
 import { BASE_URL } from '../../utils/constants';
 
-function MoviesCard({ movie, cardType, isSaved }) {
+function MoviesCard({ movie, moviesType, isSaved }) {
   return (
     <li className="movies-card">
       <div className="movies-card__container">
@@ -11,7 +11,7 @@ function MoviesCard({ movie, cardType, isSaved }) {
         <button
           type="button"
           className={`movies-card__button ${
-            cardType === 'savedMovies'
+            moviesType === 'savedMovies'
               ? 'movies-card__button_type_saved-movies'
               : ''
           } ${isSaved ? 'movies-card__button_type_saved' : ''}`}

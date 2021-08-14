@@ -76,7 +76,7 @@ function Movies({
       <main className="movies">
         <MoviesCardList
           searchedMovies={movieSearch.handleSearchResult()}
-          cardsType="searchMovies"
+          moviesType="searchMovies"
           moviesAmountToShow={moviesAmountToShow}
           showStep={showStep}
           showMoreMovies={showMoreMovies}

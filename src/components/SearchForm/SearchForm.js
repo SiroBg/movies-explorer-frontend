@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import useFormAndValidation from '../../hooks/useFormValidation';
 import FormError from '../FormError/FormError';
 
-function SearchForm({ onSearch, onCheckbox, cardsType }) {
+function SearchForm({ onSearch, onCheckbox, moviesType, isMovieListLoading }) {
   const formAndValidation = useFormAndValidation();
 
   function setLastSearchValue() {
-    if (cardsType === 'searchMovies') {
+    if (moviesType === 'searchMovies') {
       const lastSearchValue = JSON.parse(localStorage.getItem('lastSearch'));
 
       lastSearchValue
@@ -48,6 +48,7 @@ function SearchForm({ onSearch, onCheckbox, cardsType }) {
           onChange={formAndValidation.handleSearch}
           value={formAndValidation.values.searchValue || ''}
           autoComplete="off"
+          disabled={isMovieListLoading}
         />
         <FormError
           errorText="Нужно ввести ключевое слово"
@@ -63,6 +64,7 @@ function SearchForm({ onSearch, onCheckbox, cardsType }) {
           type="checkbox"
           className="search-form__checkbox"
           onClick={handleCheckbox}
+          disabled={isMovieListLoading}
         />
         <span className="search-form__checkbox-slider"></span>
         Короткометражки
