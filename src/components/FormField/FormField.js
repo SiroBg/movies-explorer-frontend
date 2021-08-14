@@ -15,7 +15,9 @@ function FormField({
     <label className="form-field">
       {fieldName}
       <input
-        className="form-field__input"
+        className={`form-field__input ${
+          errorText ? 'form-field__input_invalid' : ''
+        }`}
         type={fieldType}
         minLength={minLength}
         maxLength={maxLength}

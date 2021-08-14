@@ -1,11 +1,15 @@
 import Header from '../Header/Header';
 import FormError from '../FormError/FormError';
-import ResponseError from '../ResponseError/ResponseError';
+import ResponseMessage from '../ResponseMessage/ResponseMessage';
 
-function Profile({ name = 'Борис', email = 'borisusik@yandex.ru' }) {
+function Profile({
+  name = 'Борис',
+  email = 'borisusik@yandex.ru',
+  isLoggedIn,
+}) {
   return (
     <>
-      <Header />
+      <Header isLoggedIn={isLoggedIn} />
       <main className="profile">
         <h1 className="profile__title">Привет, {name}!</h1>
         <form className="profile__form" method="post">
@@ -31,7 +35,7 @@ function Profile({ name = 'Борис', email = 'borisusik@yandex.ru' }) {
             />
             <FormError errorText="текст ошибки" />
           </label>
-          <ResponseError isActive />
+          <ResponseMessage isActive />
           <button className="profile__submit" type="submit">
             Редактировать
           </button>

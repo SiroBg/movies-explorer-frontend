@@ -1,11 +1,11 @@
 import AuthHeader from '../AuthHeader/AuthHeader';
 import FormField from '../FormField/FormField';
-import ResponseError from '../ResponseError/ResponseError';
+import ResponseMessage from '../ResponseMessage/ResponseMessage';
 import AuthSubmit from '../AuthSubmit/AuthSubmit';
 import useFormAndValidation from '../../hooks/useFormValidation';
 import { useEffect } from 'react';
 
-function Login({ handleLogin, responseError }) {
+function Login({ handleLogin, responseMessage }) {
   const formAndValidation = useFormAndValidation();
 
   useEffect(() => {
@@ -48,7 +48,7 @@ function Login({ handleLogin, responseError }) {
           value={formAndValidation.values.password || ''}
           errorText={formAndValidation.errors.password}
         />
-        <ResponseError errorText={responseError} />
+        <ResponseMessage responseText={responseMessage} />
         <AuthSubmit
           submitBtnText="Войти"
           subText="Ещё не зарегистрированы? "

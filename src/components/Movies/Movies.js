@@ -12,6 +12,7 @@ function Movies({
   apiError,
   searchedMovies,
   onSearch,
+  isLoggedIn,
 }) {
   const [moviesAmountToShow, setMoviesAmountToShow] = useState(0);
   const [showStep, setShowStep] = useState(0);
@@ -72,7 +73,7 @@ function Movies({
 
   return (
     <>
-      <Header />
+      <Header isLoggedIn={isLoggedIn} />
       <main className="movies">
         <MoviesCardList
           searchedMovies={movieSearch.handleSearchResult()}

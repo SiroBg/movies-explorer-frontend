@@ -21,7 +21,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [currentUser, setCurrentUser] = useState({});
   const [savedMoives, setSavedMovies] = useState([]);
-  const [responseError, setResponseError] = useState('');
+  const [loginResponseMessage, setLoginResponseMessage] = useState('');
+  const [registerResponseMessage, setRegisterResponseMessage] = useState('');
   const history = useHistory();
 
   useEffect(() => {
@@ -34,11 +35,12 @@ function App() {
       .then((res) => {
         const jwt = res.token;
         localStorage.setItem('jwt', jwt);
+        setLoginResponseMessage('ОК');
         setIsLoggedIn(true);
         history.push('/movies');
       })
       .catch((err) => {
-        setResponseError(err.message);
+        setLoginResponseMessage(err.message);
         console.log(err);
       });
   }
@@ -48,9 +50,10 @@ function App() {
       .register(name, email, password)
       .then(() => {
         history.push('/signin');
+        setRegisterResponseMessage('ОК');
       })
       .catch((err) => {
-        setResponseError(err.message);
+        setRegisterResponseMessage(err.message);
         console.log(err);
       });
   }
@@ -66,6 +69,9 @@ function App() {
   }
 
   function checkToken() {
+    if (isLoggedIn) {
+      history.push('/movies');
+    }
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       getInitialData(jwt);
@@ -102,12 +108,15 @@ function App() {
       <div className="app">
         <Switch>
           <Route path="/signin">
-            <Login handleLogin={handleLogin} responseError={responseError} />
+            <Login
+              handleLogin={handleLogin}
+              responseMessage={loginResponseMessage}
+            />
           </Route>
           <Route path="/signup">
             <Register
               handleRegister={handleRegister}
-              responseError={responseError}
+              responseMessage={registerResponseMessage}
             />
           </Route>
           <ProtectedRoute path="/movies" isLoggedIn={isLoggedIn}>
@@ -118,16 +127,17 @@ function App() {
               apiError={apiError}
               searchedMovies={beatfilmMoviesSearch}
               onSearch={onBeatfilmSearch}
+              isLoggedIn={isLoggedIn}
             />
           </ProtectedRoute>
           <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn}>
-            <SavedMovies />
+            <SavedMovies isLoggedIn={isLoggedIn} />
           </ProtectedRoute>
           <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn}>
-            <Profile />
+            <Profile isLoggedIn={isLoggedIn} />
           </ProtectedRoute>
           <Route exact path="/">
-            <Main />
+            <Main isLoggedIn={isLoggedIn} />
           </Route>
           <Route path="*">
             <NotFoundPage />

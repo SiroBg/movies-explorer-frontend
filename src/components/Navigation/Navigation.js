@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { CLOSE_KEY } from '../../utils/constants';
 import Burger from '../Burger/Burger';
 
-function Navigation({ isLoggedIn = true }) {
+function Navigation({ isLoggedIn }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   function closeNavOnOverlay(e) {

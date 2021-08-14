@@ -28,6 +28,11 @@
   outline: none;
 }
 
+.form-field__input_invalid {
+  color: #ff3055;
+  border-color: #ff3055;
+}
+
 .form-field__input:focus {
   border-color: #3456f3;
 }

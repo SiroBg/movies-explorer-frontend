@@ -2,7 +2,7 @@ import headerLogo from '../../images/header__logo.svg';
 import { NavLink } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 
-function Header() {
+function Header({ isLoggedIn }) {
   return (
     <header className="header">
       <NavLink
@@ -17,7 +17,7 @@ function Header() {
           alt="Логотип movies-explorer"
         />
       </NavLink>
-      <Navigation />
+      <Navigation isLoggedIn={isLoggedIn} />
     </header>
   );
 }

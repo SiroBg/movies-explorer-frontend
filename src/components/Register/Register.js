@@ -1,11 +1,11 @@
 import AuthHeader from '../AuthHeader/AuthHeader';
 import AuthSubmit from '../AuthSubmit/AuthSubmit';
 import FormField from '../FormField/FormField';
-import ResponseError from '../ResponseError/ResponseError';
+import ResponseMessage from '../ResponseMessage/ResponseMessage';
 import useFormAndValidation from '../../hooks/useFormValidation';
 import { useEffect } from 'react';
 
-function Register({ handleRegister, responseError }) {
+function Register({ handleRegister, responseMessage }) {
   const formAndValidation = useFormAndValidation();
 
   useEffect(() => {
@@ -60,7 +60,7 @@ function Register({ handleRegister, responseError }) {
           value={formAndValidation.values.password || ''}
           errorText={formAndValidation.errors.password}
         />
-        <ResponseError errorText={responseError} />
+        <ResponseMessage responseText={responseMessage} />
         <AuthSubmit
           submitBtnText="Зарегистрироваться"
           subText="Уже зарегистрированы? "
