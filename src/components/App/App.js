@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -8,24 +8,29 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import moviesApi from '../../utils/MoviesApi';
-import useMovieSearch from '../../hooks/useMovieSearch';
 
 function App() {
   const [showResults, setShowResults] = useState(false);
   const [isMovieListLoading, setIsMovieListLoading] = useState(false);
   const [apiError, setApiError] = useState(false);
-
-  const movieSearch = useMovieSearch();
+  const [beatfilmMoviesSearch, setBeatfilmMoviesSearch] = useState({});
 
   function onBeatfilmSearch({ searchValue }) {
     setShowResults(false);
     setIsMovieListLoading(true);
     moviesApi
       .getMovies()
-      .then((res) => {
+      .then((movies) => {
         setShowResults(true);
         setApiError(false);
-        movieSearch.sortSearchedMovies(res, searchValue);
+        setBeatfilmMoviesSearch({ movies, searchValue });
+        localStorage.setItem(
+          'lastSearch',
+          JSON.stringify({
+            movies,
+            searchValue,
+          })
+        );
       })
       .catch((err) => {
         setShowResults(true);
@@ -34,6 +39,7 @@ function App() {
       })
       .finally(() => setIsMovieListLoading(false));
   }
+
   return (
     <div className="app">
       <Switch>
@@ -46,11 +52,11 @@ function App() {
         <Route path="/movies">
           <Movies
             showResults={showResults}
+            setShowResults={setShowResults}
             isMovieListLoading={isMovieListLoading}
             apiError={apiError}
-            searchedMovies={movieSearch.handleSearchResult()}
+            searchedMovies={beatfilmMoviesSearch}
             onSearch={onBeatfilmSearch}
-            onCheckbox={movieSearch.setShortMovieCheckbox}
           />
         </Route>
         <Route path="/saved-movies">

@@ -70,7 +70,11 @@ function MoviesCardList({
 
   return (
     <>
-      <SearchForm onSearch={onMovieSearch} onCheckbox={onShortMovieCheckbox} />
+      <SearchForm
+        onSearch={onMovieSearch}
+        onCheckbox={onShortMovieCheckbox}
+        cardsType={cardsType}
+      />
       {isMovieListLoading && <Preloader />}
       {showResults && handleRenderMovies()}
       {cardsType === 'searchMovies' && renderLoadMoreButton()}

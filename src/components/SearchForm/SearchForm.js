@@ -1,8 +1,25 @@
+import { useEffect } from 'react';
 import useFormAndValidation from '../../hooks/useFormValidation';
 import FormError from '../FormError/FormError';
 
-function SearchForm({ onSearch, onCheckbox }) {
+function SearchForm({ onSearch, onCheckbox, cardsType }) {
   const formAndValidation = useFormAndValidation();
+
+  function setLastSearchValue() {
+    if (cardsType === 'searchMovies') {
+      const lastSearchValue = JSON.parse(localStorage.getItem('lastSearch'));
+
+      lastSearchValue
+        ? formAndValidation.setValues({
+            searchValue: lastSearchValue.searchValue,
+          })
+        : formAndValidation.setValues({ searchValue: '' });
+    }
+  }
+
+  useEffect(() => {
+    setLastSearchValue();
+  }, []);
 
   function handleCheckbox(e) {
     onCheckbox(e.target.checked);
