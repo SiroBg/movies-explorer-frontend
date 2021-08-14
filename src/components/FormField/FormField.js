@@ -6,6 +6,10 @@ function FormField({
   placeholder,
   minLength,
   maxLength,
+  onChange,
+  value,
+  name,
+  errorText,
 }) {
   return (
     <label className="form-field">
@@ -17,8 +21,12 @@ function FormField({
         maxLength={maxLength}
         placeholder={placeholder}
         required
+        name={name}
+        onChange={onChange}
+        value={value}
+        autoComplete="off"
       />
-      <FormError errorText="текст ошибки валидации" />
+      <FormError errorText={errorText} isActive={errorText} />
     </label>
   );
 }

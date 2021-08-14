@@ -14,6 +14,14 @@
   transition: opacity 0.2s;
 }
 
+.auth-submit__button_disabled {
+  color: rgba(0, 0, 0, 0.6);
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  user-select: none;
+}
+
 .auth-submit__text {
   margin: 0;
   font-size: 14px;

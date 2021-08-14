@@ -1,9 +1,9 @@
-function ResponseError({ isActive }) {
+function ResponseError({ errorText }) {
   return (
     <span
-      className={`response-error ${isActive ? 'response-error_active' : ''}`}
+      className={`response-error ${errorText ? 'response-error_active' : ''}`}
     >
-      Что-то пошло не так...
+      {errorText}
     </span>
   );
 }
