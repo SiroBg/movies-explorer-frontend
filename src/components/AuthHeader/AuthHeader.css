@@ -1,6 +1,7 @@
 .auth-header__link {
   display: block;
   margin-bottom: 40px;
+  transition: opacity 0.2s;
 }
 
 .auth-header__logo {

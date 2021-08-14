@@ -44,6 +44,7 @@
   border-radius: 48px;
   background-color: #3456f3;
   cursor: pointer;
+  transition: opacity 0.2s;
 }
 
 .search-form__button:hover {

@@ -11,6 +11,7 @@
   background-color: #3456f3;
   border-radius: 3px;
   cursor: pointer;
+  transition: opacity 0.2s;
 }
 
 .auth-submit__text {
@@ -25,6 +26,7 @@
 .auth-submit__link {
   color: #3456f3;
   text-decoration: none;
+  transition: opacity 0.2s;
 }
 
 .auth-submit__button:hover,

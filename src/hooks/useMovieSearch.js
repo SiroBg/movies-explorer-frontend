@@ -7,10 +7,13 @@ export default function useMovieSearch() {
   const [shortMovieCheckBox, setShortMovieCheckbox] = useState(false);
 
   function checkMovieNameAndDescription(movie, searchValue) {
-    return (
-      movie.nameRU.toLowerCase().includes(searchValue.toLowerCase()) ||
-      movie.description.toLowerCase().includes(searchValue.toLowerCase())
-    );
+    if (movie.nameRU && movie.nameEN) {
+      return (
+        movie.nameRU.toLowerCase().includes(searchValue.toLowerCase()) ||
+        movie.nameEN.toLowerCase().includes(searchValue.toLowerCase())
+      );
+    }
+    return movie.nameRU.toLowerCase().includes(searchValue.toLowerCase());
   }
 
   function isShortMovie(movie) {

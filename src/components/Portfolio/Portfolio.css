@@ -30,6 +30,7 @@
   text-decoration: none;
   color: #000;
   border-bottom: 1px solid #e8e8e8;
+  transition: opacity 0.2s, border-color 0.2s;
 }
 
 .portfolio__link::after {

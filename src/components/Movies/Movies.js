@@ -3,6 +3,7 @@ import Footer from '../Footer/Footer';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { useEffect, useState } from 'react';
 import useMovieSearch from '../../hooks/useMovieSearch';
+import { DEVICE_SETTINGS } from '../../utils/constants';
 
 function Movies({
   showResults,
@@ -35,21 +36,21 @@ function Movies({
   }
 
   function handleMoviesToShow() {
-    if (window.innerWidth > 1280) {
-      setShowStep(3);
-      setMoviesAmountToShow(12);
+    if (window.innerWidth > DEVICE_SETTINGS.desktop.width) {
+      setShowStep(DEVICE_SETTINGS.desktop.showStep);
+      setMoviesAmountToShow(DEVICE_SETTINGS.desktop.moviesAmount);
       return;
     }
 
-    if (window.innerWidth > 768) {
-      setShowStep(2);
-      setMoviesAmountToShow(8);
+    if (window.innerWidth > DEVICE_SETTINGS.tablet.width) {
+      setShowStep(DEVICE_SETTINGS.tablet.showStep);
+      setMoviesAmountToShow(DEVICE_SETTINGS.tablet.moviesAmount);
       return;
     }
 
-    if (window.innerWidth > 320) {
-      setShowStep(1);
-      setMoviesAmountToShow(5);
+    if (window.innerWidth > DEVICE_SETTINGS.mobile.width) {
+      setShowStep(DEVICE_SETTINGS.mobile.showStep);
+      setMoviesAmountToShow(DEVICE_SETTINGS.mobile.moviesAmount);
       return;
     }
   }

@@ -17,11 +17,18 @@ function MoviesCard({ movie, cardType, isSaved }) {
           } ${isSaved ? 'movies-card__button_type_saved' : ''}`}
         />
       </div>
-      <img
-        className="movies-card__image"
-        src={BASE_URL + movie.image.url}
-        alt={movie.nameRU}
-      />
+      <a
+        className="movies-card__trailer-link"
+        href={movie.trailerLink}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <img
+          className="movies-card__image"
+          src={BASE_URL + movie.image.url}
+          alt={movie.nameRU}
+        />
+      </a>
     </li>
   );
 }
