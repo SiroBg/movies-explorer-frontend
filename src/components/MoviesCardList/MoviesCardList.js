@@ -2,54 +2,39 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
 import MoviesNotFound from '../MoviesNotFound/MoviesNotFound';
-import useMovieSearch from '../../hooks/useMovieSearch';
-import { useState } from 'react';
 
 function MoviesCardList({
-  getMovies,
+  searchedMovies,
   cardsType,
   moviesAmountToShow,
   showMoreMovies,
   handleMoviesToShow,
+  showResults,
+  isMovieListLoading,
+  apiError,
+  onSearch,
+  onCheckbox,
 }) {
-  const [showResults, setShowResults] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [apiError, setApiError] = useState(false);
-
-  const movieSearch = useMovieSearch();
-
-  function onSearch({ searchValue }) {
+  function onMovieSearch({ searchValue }) {
     if (searchValue) {
-      setShowResults(false);
-      setIsLoading(true);
-      getMovies()
-        .then((res) => {
-          handleMoviesToShow();
-          setShowResults(true);
-          setApiError(false);
-          movieSearch.sortSearchedMovies(res, searchValue);
-        })
-        .catch((err) => {
-          setShowResults(true);
-          setApiError(true);
-          console.log(err);
-        })
-        .finally(() => setIsLoading(false));
+      handleMoviesToShow();
+      onSearch({ searchValue });
     }
   }
 
+  function onShortMovieCheckbox(e) {
+    handleMoviesToShow();
+    onCheckbox(e);
+  }
+
   function renderMoviesToShow() {
-    const moviesToShow = movieSearch
-      .handleSearchResult()
-      .slice(0, moviesAmountToShow);
+    const moviesToShow = searchedMovies.slice(0, moviesAmountToShow);
     return moviesToShow;
   }
 
   function renderMovies() {
     const moviesToRender =
-      cardsType === 'searchMovies'
-        ? renderMoviesToShow()
-        : movieSearch.handleSearchResult();
+      cardsType === 'searchMovies' ? renderMoviesToShow() : searchedMovies;
 
     return (
       <ul className="movies-card-list">
@@ -61,7 +46,7 @@ function MoviesCardList({
   }
 
   function handleRenderMovies() {
-    return movieSearch.handleSearchResult().length === 0 || apiError ? (
+    return searchedMovies.length === 0 || apiError ? (
       <MoviesNotFound apiError={apiError} />
     ) : (
       renderMovies()
@@ -70,8 +55,8 @@ function MoviesCardList({
 
   function renderLoadMoreButton() {
     return (
-      movieSearch.handleSearchResult().length > moviesAmountToShow &&
-      !isLoading && (
+      searchedMovies.length > moviesAmountToShow &&
+      !isMovieListLoading && (
         <button
           className="movies-card-list__button"
           type="button"
@@ -85,11 +70,8 @@ function MoviesCardList({
 
   return (
     <>
-      <SearchForm
-        onSearch={onSearch}
-        onCheckbox={movieSearch.setShortMovieCheckbox}
-      />
-      {isLoading && <Preloader />}
+      <SearchForm onSearch={onMovieSearch} onCheckbox={onShortMovieCheckbox} />
+      {isMovieListLoading && <Preloader />}
       {showResults && handleRenderMovies()}
       {cardsType === 'searchMovies' && renderLoadMoreButton()}
     </>

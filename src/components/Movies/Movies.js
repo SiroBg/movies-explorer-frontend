@@ -1,16 +1,18 @@
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import moviesApi from '../../utils/MoviesApi';
 import { useEffect, useState } from 'react';
 
-function Movies() {
+function Movies({
+  showResults,
+  isMovieListLoading,
+  apiError,
+  searchedMovies,
+  onSearch,
+  onCheckbox,
+}) {
   const [moviesAmountToShow, setMoviesAmountToShow] = useState(0);
   const [showStep, setShowStep] = useState(0);
-
-  function getMovies() {
-    return moviesApi.getMovies();
-  }
 
   function handleMoviesToShow() {
     if (window.innerWidth > 1280) {
@@ -50,12 +52,17 @@ function Movies() {
       <Header />
       <main className="movies">
         <MoviesCardList
-          getMovies={getMovies}
+          searchedMovies={searchedMovies}
           cardsType="searchMovies"
           moviesAmountToShow={moviesAmountToShow}
           showStep={showStep}
           showMoreMovies={showMoreMovies}
           handleMoviesToShow={handleMoviesToShow}
+          showResults={showResults}
+          isMovieListLoading={isMovieListLoading}
+          apiError={apiError}
+          onSearch={onSearch}
+          onCheckbox={onCheckbox}
         />
       </main>
       <Footer />
