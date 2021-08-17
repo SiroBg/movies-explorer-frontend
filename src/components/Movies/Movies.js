@@ -13,6 +13,7 @@ function Movies({
   searchedMovies,
   onSearch,
   isLoggedIn,
+  onMovieBtn,
 }) {
   const [moviesAmountToShow, setMoviesAmountToShow] = useState(0);
   const [showStep, setShowStep] = useState(0);
@@ -87,6 +88,7 @@ function Movies({
           apiError={apiError}
           onSearch={onSearch}
           onCheckbox={movieSearch.setShortMovieCheckbox}
+          onMovieBtn={onMovieBtn}
         />
       </main>
       <Footer />

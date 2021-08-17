@@ -14,6 +14,7 @@ function MoviesCardList({
   apiError,
   onSearch,
   onCheckbox,
+  onMovieBtn,
 }) {
   function onMovieSearch({ searchValue }) {
     if (searchValue) {
@@ -39,7 +40,12 @@ function MoviesCardList({
     return (
       <ul className="movies-card-list">
         {moviesToRender.map((movie) => (
-          <MoviesCard key={movie.id} movie={movie} moviesType={moviesType} />
+          <MoviesCard
+            key={movie.id}
+            movie={movie}
+            moviesType={moviesType}
+            onMovieBtn={onMovieBtn}
+          />
         ))}
       </ul>
     );

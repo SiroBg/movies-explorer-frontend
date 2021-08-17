@@ -71,22 +71,18 @@ function App() {
   }
 
   function handleUpdateUserInfo(name, email) {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      setIsRequestLoading(true);
-      return mainApi
-        .updateUserInfo(name, email, jwt)
-        .then((res) => {
-          setCurrentUser(res);
-          setIsInfoTooltipOpen(true);
-        })
-        .catch((err) => {
-          setResponseMessage(err.message);
-          console.log(err);
-        })
-        .finally(() => setIsRequestLoading(false));
-    }
-    setResponseMessage('Авторизуйтесь.');
+    setIsRequestLoading(true);
+    mainApi
+      .updateUserInfo(name, email)
+      .then((res) => {
+        setCurrentUser(res);
+        setIsInfoTooltipOpen(true);
+      })
+      .catch((err) => {
+        setResponseMessage(err.message);
+        console.log(err);
+      })
+      .finally(() => setIsRequestLoading(false));
   }
 
   function handleLogOut() {
@@ -96,8 +92,8 @@ function App() {
     history.push('/');
   }
 
-  function getInitialData(jwt) {
-    Promise.all([mainApi.getCurrentUserInfo(jwt), mainApi.getSavedMovies(jwt)])
+  function getInitialData() {
+    Promise.all([mainApi.getCurrentUserInfo(), mainApi.getSavedMovies()])
       .then((res) => {
         const [userInfo, movies] = res;
         setCurrentUser(userInfo);
@@ -109,7 +105,8 @@ function App() {
   function checkToken() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-      getInitialData(jwt);
+      mainApi.setToken();
+      getInitialData();
       setIsLoggedIn(true);
       history.push('/movies');
     }
@@ -144,6 +141,29 @@ function App() {
       .finally(() => setIsMovieListLoading(false));
   }
 
+  function removeMovieFromSaved(movie) {
+    mainApi
+      .removieMovieFromSaved(movie._id)
+      .then(() => {
+        setSavedMovies((res) => res.filter((m) => m._id !== movie._id));
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function addMovie(movie) {
+    mainApi
+      .addMovie(movie)
+      .then((res) => {
+        setSavedMovies([...savedMoives, res]);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function handleMovieAddBtn(movie) {
+    const isMovieSaved = savedMoives.some((m) => m.id === movie.id);
+    isMovieSaved ? addMovie(movie) : removeMovieFromSaved(movie);
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
@@ -173,10 +193,11 @@ function App() {
               searchedMovies={beatfilmMoviesSearch}
               onSearch={onBeatfilmSearch}
               isLoggedIn={isLoggedIn}
+              onMovieBtn={handleMovieAddBtn}
             />
           </ProtectedRoute>
           <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn}>
-            <SavedMovies isLoggedIn={isLoggedIn} />
+            <SavedMovies isLoggedIn={isLoggedIn} searchedMovies={savedMoives} />
           </ProtectedRoute>
           <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn}>
             <Profile
