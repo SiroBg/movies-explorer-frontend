@@ -5,16 +5,11 @@
   font-weight: 400;
   line-height: 12px;
   text-align: center;
+  color: #ff3055;
   opacity: 0;
   transition: opacity 0.3s;
 }
 
 .response-message_active {
   opacity: 1;
-  color: #ff3055;
-}
-
-.response-message_type_success {
-  opacity: 1;
-  color: #3456f3;
 }

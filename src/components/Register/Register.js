@@ -5,12 +5,36 @@ import ResponseMessage from '../ResponseMessage/ResponseMessage';
 import useFormAndValidation from '../../hooks/useFormValidation';
 import { useEffect } from 'react';
 
-function Register({ handleRegister, responseMessage }) {
+function Register({
+  handleRegister,
+  response,
+  resetResponse,
+  isRequestLoading,
+}) {
   const formAndValidation = useFormAndValidation();
 
   useEffect(() => {
-    formAndValidation.setIsValid();
+    formAndValidation.setIsValid(false);
+
+    return () => {
+      resetResponse();
+    };
   }, []);
+
+  function handleChange(e) {
+    formAndValidation.handleChange(e);
+    resetResponse();
+  }
+
+  function handleNameChange(e) {
+    formAndValidation.handleNameChange(e);
+    resetResponse();
+  }
+
+  function handleEmailChange(e) {
+    formAndValidation.handleEmailChange(e);
+    resetResponse();
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -37,30 +61,33 @@ function Register({ handleRegister, responseMessage }) {
           placeholder="Введите ваше имя"
           minLength="2"
           maxLength="30"
-          onChange={formAndValidation.handleChange}
+          onChange={handleNameChange}
           name="name"
           value={formAndValidation.values.name || ''}
           errorText={formAndValidation.errors.name}
+          disabled={isRequestLoading}
         />
         <FormField
           fieldName="E-mail"
           fieldType="email"
           placeholder="Введите ваш e-mail"
-          onChange={formAndValidation.handleChange}
+          onChange={handleEmailChange}
           name="email"
           value={formAndValidation.values.email || ''}
           errorText={formAndValidation.errors.email}
+          disabled={isRequestLoading}
         />
         <FormField
           fieldName="Пароль"
           fieldType="password"
           placeholder="Придумайте пароль"
-          onChange={formAndValidation.handleChange}
+          onChange={handleChange}
           name="password"
           value={formAndValidation.values.password || ''}
           errorText={formAndValidation.errors.password}
+          disabled={isRequestLoading}
         />
-        <ResponseMessage responseText={responseMessage} />
+        <ResponseMessage response={response} />
         <AuthSubmit
           submitBtnText="Зарегистрироваться"
           subText="Уже зарегистрированы? "

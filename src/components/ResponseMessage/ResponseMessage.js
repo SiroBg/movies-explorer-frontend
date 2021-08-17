@@ -1,14 +1,15 @@
-function ResponseMessage({ responseText }) {
+function ResponseMessage({ response }) {
   function handleResponseMessage() {
-    return responseText === 'ОК' ? 'Запрос прошёл успешно!' : responseText;
+    if (response === 'celebrate request validation failed') {
+      return 'Неверный формат почты.';
+    }
+    return response ? response : '';
   }
 
   return (
     <span
       className={`response-message ${
-        responseText === 'ОК'
-          ? 'response-message_type_success'
-          : 'response-message_active'
+        response ? 'response-message_active' : ''
       }`}
     >
       {handleResponseMessage()}

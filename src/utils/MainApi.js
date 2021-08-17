@@ -9,7 +9,9 @@ class MainApi {
     if (res.ok) {
       return res.json();
     }
-    return Promise.reject(new Error(`Ошибка: ${res.status}`));
+    return res.text().then((text) => {
+      throw new Error(JSON.parse(text).message);
+    });
   }
 
   getCurrentUserInfo(token) {

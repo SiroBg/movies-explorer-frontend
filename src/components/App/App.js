@@ -7,6 +7,7 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
+import InfoToolTip from '../InfoToolTip/InfoToolTip';
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -17,45 +18,82 @@ function App() {
   const [isMovieListLoading, setIsMovieListLoading] = useState(false);
   const [apiError, setApiError] = useState(false);
   const [beatfilmMoviesSearch, setBeatfilmMoviesSearch] = useState({});
+  const [isRequestLoading, setIsRequestLoading] = useState(false);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [savedMoives, setSavedMovies] = useState([]);
-  const [loginResponseMessage, setLoginResponseMessage] = useState('');
-  const [registerResponseMessage, setRegisterResponseMessage] = useState('');
+  const [responseMessage, setResponseMessage] = useState('');
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
     checkToken();
   }, []);
 
+  function resetResponseMessage() {
+    setResponseMessage('');
+  }
+
   function handleLogin(email, password) {
+    setIsRequestLoading(true);
     mainApi
       .login(email, password)
       .then((res) => {
+        console.log(isRequestLoading);
         const jwt = res.token;
         localStorage.setItem('jwt', jwt);
-        setLoginResponseMessage('ОК');
+        resetResponseMessage();
+        setIsInfoTooltipOpen(true);
         setIsLoggedIn(true);
+        getInitialData(jwt);
         history.push('/movies');
       })
       .catch((err) => {
-        setLoginResponseMessage(err.message);
+        setResponseMessage(err.message);
         console.log(err);
-      });
+      })
+      .finally(() => setIsRequestLoading(false));
   }
 
   function handleRegister(name, email, password) {
+    setIsRequestLoading(true);
     mainApi
       .register(name, email, password)
       .then(() => {
-        history.push('/signin');
-        setRegisterResponseMessage('ОК');
+        handleLogin(email, password);
       })
       .catch((err) => {
-        setRegisterResponseMessage(err.message);
+        setResponseMessage(err.message);
         console.log(err);
-      });
+      })
+      .finally(() => setIsRequestLoading(false));
+  }
+
+  function handleUpdateUserInfo(name, email) {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      setIsRequestLoading(true);
+      return mainApi
+        .updateUserInfo(name, email, jwt)
+        .then((res) => {
+          setCurrentUser(res);
+          setIsInfoTooltipOpen(true);
+        })
+        .catch((err) => {
+          setResponseMessage(err.message);
+          console.log(err);
+        })
+        .finally(() => setIsRequestLoading(false));
+    }
+    setResponseMessage('Авторизуйтесь.');
+  }
+
+  function handleLogOut() {
+    setIsLoggedIn(false);
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('lastSearch');
+    history.push('/');
   }
 
   function getInitialData(jwt) {
@@ -69,13 +107,16 @@ function App() {
   }
 
   function checkToken() {
-    if (isLoggedIn) {
-      history.push('/movies');
-    }
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       getInitialData(jwt);
+      setIsLoggedIn(true);
+      history.push('/movies');
     }
+  }
+
+  function closeInfoToolTip() {
+    setIsInfoTooltipOpen(false);
   }
 
   function onBeatfilmSearch({ searchValue }) {
@@ -110,13 +151,17 @@ function App() {
           <Route path="/signin">
             <Login
               handleLogin={handleLogin}
-              responseMessage={loginResponseMessage}
+              response={responseMessage}
+              resetResponse={resetResponseMessage}
+              isRequestLoading={isRequestLoading}
             />
           </Route>
           <Route path="/signup">
             <Register
               handleRegister={handleRegister}
-              responseMessage={registerResponseMessage}
+              response={responseMessage}
+              resetResponse={resetResponseMessage}
+              isRequestLoading={isRequestLoading}
             />
           </Route>
           <ProtectedRoute path="/movies" isLoggedIn={isLoggedIn}>
@@ -134,7 +179,14 @@ function App() {
             <SavedMovies isLoggedIn={isLoggedIn} />
           </ProtectedRoute>
           <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn}>
-            <Profile isLoggedIn={isLoggedIn} />
+            <Profile
+              isLoggedIn={isLoggedIn}
+              onLogOut={handleLogOut}
+              handleUpdateUserInfo={handleUpdateUserInfo}
+              response={responseMessage}
+              resetResponse={resetResponseMessage}
+              isRequestLoading={isRequestLoading}
+            />
           </ProtectedRoute>
           <Route exact path="/">
             <Main isLoggedIn={isLoggedIn} />
@@ -143,6 +195,7 @@ function App() {
             <NotFoundPage />
           </Route>
         </Switch>
+        <InfoToolTip isOpen={isInfoTooltipOpen} onClose={closeInfoToolTip} />
       </div>
     </CurrentUserContext.Provider>
   );

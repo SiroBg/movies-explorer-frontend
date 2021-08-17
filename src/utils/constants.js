@@ -7,6 +7,7 @@ const DEVICE_SETTINGS = {
   tablet: { width: 767, moviesAmount: 8, showStep: 2 },
   mobile: { width: 320, moviesAmount: 5, showStep: 1 },
 };
+const NAME_REGEXP = /^[A-Za-zА-Яа-я-\sёЁ]{2,30}$/;
 
 export {
   BASE_URL,
@@ -14,4 +15,5 @@ export {
   SHORT_MOVIE_LENGTH,
   DEVICE_SETTINGS,
   BASE_MAIN_URL,
+  NAME_REGEXP,
 };

@@ -5,12 +5,26 @@ import AuthSubmit from '../AuthSubmit/AuthSubmit';
 import useFormAndValidation from '../../hooks/useFormValidation';
 import { useEffect } from 'react';
 
-function Login({ handleLogin, responseMessage }) {
+function Login({ handleLogin, response, resetResponse, isRequestLoading }) {
   const formAndValidation = useFormAndValidation();
 
   useEffect(() => {
-    formAndValidation.setIsValid();
+    formAndValidation.setIsValid(false);
+
+    return () => {
+      resetResponse();
+    };
   }, []);
+
+  function handleChange(e) {
+    formAndValidation.handleChange(e);
+    resetResponse();
+  }
+
+  function handleEmailChange(e) {
+    formAndValidation.handleEmailChange(e);
+    resetResponse();
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -34,21 +48,23 @@ function Login({ handleLogin, responseMessage }) {
           fieldName="E-mail"
           fieldType="email"
           placeholder="Введите ваш e-mail"
-          onChange={formAndValidation.handleChange}
+          onChange={handleEmailChange}
           name="email"
           value={formAndValidation.values.email || ''}
           errorText={formAndValidation.errors.email}
+          disabled={isRequestLoading}
         />
         <FormField
           fieldName="Пароль"
           fieldType="password"
           placeholder="Введите ваш пароль"
-          onChange={formAndValidation.handleChange}
+          onChange={handleChange}
           name="password"
           value={formAndValidation.values.password || ''}
           errorText={formAndValidation.errors.password}
+          disabled={isRequestLoading}
         />
-        <ResponseMessage responseText={responseMessage} />
+        <ResponseMessage response={response} />
         <AuthSubmit
           submitBtnText="Войти"
           subText="Ещё не зарегистрированы? "

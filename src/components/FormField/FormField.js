@@ -10,6 +10,7 @@ function FormField({
   value,
   name,
   errorText,
+  disabled,
 }) {
   return (
     <label className="form-field">
@@ -27,6 +28,7 @@ function FormField({
         onChange={onChange}
         value={value}
         autoComplete="off"
+        disabled={disabled}
       />
       <FormError errorText={errorText} isActive={errorText} />
     </label>
