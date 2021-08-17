@@ -21,11 +21,15 @@ function Movies({
   const movieSearch = useMovieSearch();
 
   function handleLastSearch() {
-    const lastSearch = JSON.parse(localStorage.getItem('lastSearch'));
+    const lastSearch = localStorage.getItem('lastSearch');
 
     if (lastSearch) {
+      const searchValues = JSON.parse(lastSearch);
       setShowResults(true);
-      movieSearch.sortSearchedMovies(lastSearch.movies, lastSearch.searchValue);
+      movieSearch.sortSearchedMovies(
+        searchValues.movies,
+        searchValues.searchValue
+      );
     }
   }
 

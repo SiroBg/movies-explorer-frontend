@@ -40,13 +40,12 @@ function App() {
     mainApi
       .login(email, password)
       .then((res) => {
-        console.log(isRequestLoading);
         const jwt = res.token;
         localStorage.setItem('jwt', jwt);
         resetResponseMessage();
         setIsInfoTooltipOpen(true);
         setIsLoggedIn(true);
-        getInitialData(jwt);
+        getInitialData();
         history.push('/movies');
       })
       .catch((err) => {
@@ -93,6 +92,7 @@ function App() {
   }
 
   function getInitialData() {
+    mainApi.setToken();
     Promise.all([mainApi.getCurrentUserInfo(), mainApi.getSavedMovies()])
       .then((res) => {
         const [userInfo, movies] = res;
@@ -105,7 +105,6 @@ function App() {
   function checkToken() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-      mainApi.setToken();
       getInitialData();
       setIsLoggedIn(true);
       history.push('/movies');
