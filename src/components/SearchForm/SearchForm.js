@@ -6,14 +6,11 @@ function SearchForm({ onSearch, onCheckbox, moviesType, isMovieListLoading }) {
   const formAndValidation = useFormAndValidation();
 
   function setLastSearchValue() {
-    if (moviesType === 'searchMovies') {
-      const lastSearchValue = JSON.parse(localStorage.getItem('lastSearch'));
-
-      lastSearchValue
-        ? formAndValidation.setValues({
-            searchValue: lastSearchValue.searchValue,
-          })
-        : formAndValidation.setValues({ searchValue: '' });
+    const lastSearchValue = JSON.parse(localStorage.getItem('lastSearch'));
+    if (moviesType === 'searchMovies' && lastSearchValue) {
+      formAndValidation.setValues({
+        searchValue: lastSearchValue.value,
+      });
     }
   }
 
@@ -21,14 +18,10 @@ function SearchForm({ onSearch, onCheckbox, moviesType, isMovieListLoading }) {
     setLastSearchValue();
   }, []);
 
-  function handleCheckbox(e) {
-    onCheckbox(e.target.checked);
-  }
-
   function handleSubmit(e) {
     e.preventDefault();
     formAndValidation.setIsValid(e.target.checkValidity());
-    onSearch(formAndValidation.values);
+    onSearch(formAndValidation.values.searchValue);
   }
 
   return (
@@ -63,7 +56,7 @@ function SearchForm({ onSearch, onCheckbox, moviesType, isMovieListLoading }) {
           name="shortMovie"
           type="checkbox"
           className="search-form__checkbox"
-          onClick={handleCheckbox}
+          onClick={onCheckbox}
           disabled={isMovieListLoading}
         />
         <span className="search-form__checkbox-slider"></span>

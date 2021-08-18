@@ -12,12 +12,13 @@ import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import handleMovieSearch from '../../utils/handleMovieSearch';
 
 function App() {
   const [showResults, setShowResults] = useState(false);
   const [isMovieListLoading, setIsMovieListLoading] = useState(false);
   const [apiError, setApiError] = useState(false);
-  const [beatfilmMoviesSearch, setBeatfilmMoviesSearch] = useState({});
+  const [beatfilmMoviesSearch, setBeatfilmMoviesSearch] = useState([]);
   const [isRequestLoading, setIsRequestLoading] = useState(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -26,6 +27,7 @@ function App() {
   const [responseMessage, setResponseMessage] = useState('');
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const history = useHistory();
+  const movieSearch = handleMovieSearch();
 
   useEffect(() => {
     checkToken();
@@ -88,11 +90,12 @@ function App() {
     setIsLoggedIn(false);
     localStorage.removeItem('jwt');
     localStorage.removeItem('lastSearch');
+    setShowResults(false);
+    setBeatfilmMoviesSearch([]);
     history.push('/');
   }
 
   function getInitialData() {
-    mainApi.setToken();
     Promise.all([mainApi.getCurrentUserInfo(), mainApi.getSavedMovies()])
       .then((res) => {
         const [userInfo, movies] = res;
@@ -105,6 +108,7 @@ function App() {
   function checkToken() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
+      mainApi.setToken();
       getInitialData();
       setIsLoggedIn(true);
       history.push('/movies');
@@ -115,7 +119,7 @@ function App() {
     setIsInfoTooltipOpen(false);
   }
 
-  function onBeatfilmSearch({ searchValue }) {
+  function onBeatfilmSearch(searchValue) {
     setShowResults(false);
     setIsMovieListLoading(true);
     moviesApi
@@ -123,12 +127,17 @@ function App() {
       .then((movies) => {
         setShowResults(true);
         setApiError(false);
-        setBeatfilmMoviesSearch({ movies, searchValue });
+        setBeatfilmMoviesSearch(
+          movieSearch.filterMoviesAndSetRightFormat(movies, searchValue)
+        );
         localStorage.setItem(
           'lastSearch',
           JSON.stringify({
-            movies,
-            searchValue,
+            movies: movieSearch.filterMoviesAndSetRightFormat(
+              movies,
+              searchValue
+            ),
+            value: searchValue,
           })
         );
       })
@@ -138,6 +147,14 @@ function App() {
         console.log(err);
       })
       .finally(() => setIsMovieListLoading(false));
+  }
+
+  function getLastSearch() {
+    const lastSearch = JSON.parse(localStorage.getItem('lastSearch'));
+    if (lastSearch) {
+      setShowResults(true);
+      setBeatfilmMoviesSearch(lastSearch.movies);
+    }
   }
 
   function removeMovieFromSaved(movie) {
@@ -185,8 +202,8 @@ function App() {
           </Route>
           <ProtectedRoute path="/movies" isLoggedIn={isLoggedIn}>
             <Movies
+              getLastSearch={getLastSearch}
               showResults={showResults}
-              setShowResults={setShowResults}
               isMovieListLoading={isMovieListLoading}
               apiError={apiError}
               searchedMovies={beatfilmMoviesSearch}

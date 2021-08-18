@@ -2,43 +2,44 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { useEffect, useState } from 'react';
-import useMovieSearch from '../../hooks/useMovieSearch';
 import { DEVICE_SETTINGS } from '../../utils/constants';
+import handleMovieSearch from '../../utils/handleMovieSearch';
 
 function Movies({
   showResults,
-  setShowResults,
   isMovieListLoading,
   apiError,
   searchedMovies,
   onSearch,
   isLoggedIn,
   onMovieBtn,
+  getLastSearch,
 }) {
   const [moviesAmountToShow, setMoviesAmountToShow] = useState(0);
   const [showStep, setShowStep] = useState(0);
+  const [shortMovieCheckBox, setShortMovieCheckBox] = useState(false);
+  const movieSearch = handleMovieSearch();
 
-  const movieSearch = useMovieSearch();
+  useEffect(() => {
+    getLastSearch();
+  }, []);
 
-  function handleLastSearch() {
-    const lastSearch = localStorage.getItem('lastSearch');
-
-    if (lastSearch) {
-      const searchValues = JSON.parse(lastSearch);
-      setShowResults(true);
-      movieSearch.sortSearchedMovies(
-        searchValues.movies,
-        searchValues.searchValue
-      );
-    }
+  function onShortMovieCheckBox() {
+    handleMoviesToShow();
+    setShortMovieCheckBox(!shortMovieCheckBox);
   }
 
-  function handleSearch() {
-    if (searchedMovies.movies)
-      movieSearch.sortSearchedMovies(
-        searchedMovies.movies,
-        searchedMovies.searchValue
-      );
+  function handleOnSearch(searchValue) {
+    handleMoviesToShow();
+    onSearch(searchValue);
+  }
+
+  function handleRenderMovies() {
+    return shortMovieCheckBox
+      ? movieSearch
+          .filterShortMovies(searchedMovies)
+          .slice(0, moviesAmountToShow)
+      : searchedMovies.slice(0, moviesAmountToShow);
   }
 
   function handleMoviesToShow() {
@@ -62,8 +63,6 @@ function Movies({
   }
 
   useEffect(() => {
-    handleLastSearch();
-    handleSearch();
     handleMoviesToShow();
     window.addEventListener('resize', handleMoviesToShow);
 
@@ -76,24 +75,40 @@ function Movies({
     setMoviesAmountToShow(moviesAmountToShow + showStep);
   }
 
+  function renderLoadMoreButton() {
+    const moviesLength = shortMovieCheckBox
+      ? movieSearch.filterShortMovies(searchedMovies).length
+      : searchedMovies.length;
+
+    return (
+      moviesLength > moviesAmountToShow &&
+      !isMovieListLoading && (
+        <button
+          className="movies__button"
+          type="button"
+          onClick={showMoreMovies}
+        >
+          Ещё
+        </button>
+      )
+    );
+  }
+
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
       <main className="movies">
         <MoviesCardList
-          searchedMovies={movieSearch.handleSearchResult()}
+          searchedMovies={handleRenderMovies()}
           moviesType="searchMovies"
-          moviesAmountToShow={moviesAmountToShow}
-          showStep={showStep}
-          showMoreMovies={showMoreMovies}
-          handleMoviesToShow={handleMoviesToShow}
           showResults={showResults}
           isMovieListLoading={isMovieListLoading}
           apiError={apiError}
-          onSearch={onSearch}
-          onCheckbox={movieSearch.setShortMovieCheckbox}
+          onSearch={handleOnSearch}
           onMovieBtn={onMovieBtn}
+          onCheckbox={onShortMovieCheckBox}
         />
+        {renderLoadMoreButton()}
       </main>
       <Footer />
     </>

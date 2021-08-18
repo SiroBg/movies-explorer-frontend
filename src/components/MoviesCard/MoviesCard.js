@@ -1,5 +1,3 @@
-import { BASE_URL } from '../../utils/constants';
-
 function MoviesCard({ movie, moviesType, isSaved, onMovieBtn }) {
   function handleMovieBtn() {
     onMovieBtn({
@@ -36,13 +34,13 @@ function MoviesCard({ movie, moviesType, isSaved, onMovieBtn }) {
       </div>
       <a
         className="movies-card__trailer-link"
-        href={movie.trailerLink}
+        href={movie.trailer}
         target="_blank"
         rel="noreferrer"
       >
         <img
           className="movies-card__image"
-          src={BASE_URL + movie.image.url}
+          src={movie.image}
           alt={movie.nameRU}
         />
       </a>
