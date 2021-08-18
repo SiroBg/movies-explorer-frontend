@@ -12,6 +12,7 @@ function MoviesCardList({
   onSearch,
   onMovieBtn,
   onCheckbox,
+  savedMoives,
 }) {
   function renderMovies() {
     return (
@@ -22,6 +23,7 @@ function MoviesCardList({
             movie={movie}
             moviesType={moviesType}
             onMovieBtn={onMovieBtn}
+            savedMoives={savedMoives}
           />
         ))}
       </ul>
@@ -43,6 +45,7 @@ function MoviesCardList({
         onCheckbox={onCheckbox}
         moviesType={moviesType}
         isMovieListLoading={isMovieListLoading}
+        savedMoives={savedMoives}
       />
       {isMovieListLoading && <Preloader />}
       {showResults && handleRenderMovies()}

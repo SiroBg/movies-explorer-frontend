@@ -14,6 +14,7 @@ function Movies({
   isLoggedIn,
   onMovieBtn,
   getLastSearch,
+  savedMoives,
 }) {
   const [moviesAmountToShow, setMoviesAmountToShow] = useState(0);
   const [showStep, setShowStep] = useState(0);
@@ -100,6 +101,7 @@ function Movies({
       <main className="movies">
         <MoviesCardList
           searchedMovies={handleRenderMovies()}
+          savedMoives={savedMoives}
           moviesType="searchMovies"
           showResults={showResults}
           isMovieListLoading={isMovieListLoading}

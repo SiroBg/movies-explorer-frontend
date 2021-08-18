@@ -1,18 +1,14 @@
-function MoviesCard({ movie, moviesType, isSaved, onMovieBtn }) {
+function MoviesCard({ movie, moviesType, onMovieBtn, savedMoives }) {
+  function handleMovieClassName() {
+    if (moviesType === 'searchMovies') {
+      const isSaved = savedMoives.some((m) => m.movieId === movie.movieId);
+      return isSaved ? 'movies-card__button_type_saved' : '';
+    }
+    return 'movies-card__button_type_saved-movies';
+  }
+
   function handleMovieBtn() {
-    onMovieBtn({
-      country: movie.country,
-      director: movie.director,
-      duration: movie.duration,
-      year: movie.year,
-      description: movie.description,
-      image: movie.url,
-      trailer: movie.trailerLink,
-      nameRU: movie.nameRU,
-      nameEN: movie.nameEN,
-      thumbnail: movie.image.formats.thumbnail,
-      movieId: movie.id,
-    });
+    onMovieBtn(movie);
   }
 
   return (
@@ -24,11 +20,7 @@ function MoviesCard({ movie, moviesType, isSaved, onMovieBtn }) {
         </span>
         <button
           type="button"
-          className={`movies-card__button ${
-            moviesType === 'savedMovies'
-              ? 'movies-card__button_type_saved-movies'
-              : ''
-          } ${isSaved ? 'movies-card__button_type_saved' : ''}`}
+          className={`movies-card__button ${handleMovieClassName()}`}
           onClick={handleMovieBtn}
         />
       </div>

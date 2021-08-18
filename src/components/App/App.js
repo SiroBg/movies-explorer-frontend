@@ -96,11 +96,16 @@ function App() {
   }
 
   function getInitialData() {
+    mainApi.setToken();
     Promise.all([mainApi.getCurrentUserInfo(), mainApi.getSavedMovies()])
       .then((res) => {
         const [userInfo, movies] = res;
         setCurrentUser(userInfo);
-        setSavedMovies(movies);
+        setSavedMovies(
+          movies.filter((m) => {
+            return m.owner === userInfo._id;
+          })
+        );
       })
       .catch((err) => console.log(err));
   }
@@ -108,7 +113,6 @@ function App() {
   function checkToken() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-      mainApi.setToken();
       getInitialData();
       setIsLoggedIn(true);
       history.push('/movies');
@@ -176,8 +180,8 @@ function App() {
   }
 
   function handleMovieAddBtn(movie) {
-    const isMovieSaved = savedMoives.some((m) => m.id === movie.id);
-    isMovieSaved ? addMovie(movie) : removeMovieFromSaved(movie);
+    const movieToDelete = savedMoives.find((m) => m.movieId === movie.movieId);
+    !movieToDelete ? addMovie(movie) : removeMovieFromSaved(movieToDelete);
   }
 
   return (
@@ -210,10 +214,15 @@ function App() {
               onSearch={onBeatfilmSearch}
               isLoggedIn={isLoggedIn}
               onMovieBtn={handleMovieAddBtn}
+              savedMoives={savedMoives}
             />
           </ProtectedRoute>
           <ProtectedRoute path="/saved-movies" isLoggedIn={isLoggedIn}>
-            <SavedMovies isLoggedIn={isLoggedIn} searchedMovies={savedMoives} />
+            <SavedMovies
+              isLoggedIn={isLoggedIn}
+              searchedMovies={savedMoives}
+              onMovieBtn={removeMovieFromSaved}
+            />
           </ProtectedRoute>
           <ProtectedRoute path="/profile" isLoggedIn={isLoggedIn}>
             <Profile
