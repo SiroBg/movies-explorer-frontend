@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import closeKey from '../../utils/constants';
+import { CLOSE_KEY } from '../../utils/constants';
 import Burger from '../Burger/Burger';
 
-function Navigation({ isLoggedIn = true }) {
+function Navigation({ isLoggedIn }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   function closeNavOnOverlay(e) {
@@ -18,7 +18,7 @@ function Navigation({ isLoggedIn = true }) {
 
   useEffect(() => {
     function closeNavOnEscape(e) {
-      if (e.key === closeKey) {
+      if (e.key === CLOSE_KEY) {
         setIsNavOpen(false);
       }
     }

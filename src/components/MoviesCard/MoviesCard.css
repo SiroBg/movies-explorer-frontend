@@ -24,6 +24,7 @@
   line-height: 18px;
   text-overflow: ellipsis;
   white-space: nowrap;
+  overflow: hidden;
 }
 
 .movies-card__duration {
@@ -47,6 +48,7 @@
   background-position: 50% 50%;
   background-size: 10px 13px;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .movies-card__button:hover {
@@ -81,6 +83,19 @@
 
 .movies-card__button_type_saved-movies::after {
   transform: rotate(-45deg);
+}
+
+.movies-card__trailer-link {
+  display: block;
+  transition: opacity 0.2s;
+}
+
+.movies-card__trailer-link:hover {
+  opacity: 0.8;
+}
+
+.movies-card__trailer-link:active {
+  opacity: 0.6;
 }
 
 .movies-card__image {

@@ -25,6 +25,7 @@
   line-height: 18px;
   text-decoration: none;
   color: #000;
+  transition: opacity 0.2s;
 }
 
 .navigation__link_active {
@@ -46,6 +47,7 @@
   line-height: 16px;
   text-decoration: none;
   color: #000;
+  transition: opacity 0.2s;
 }
 
 .navigation__profile-link_active {
@@ -76,6 +78,7 @@
   line-height: 16px;
   text-decoration: none;
   color: #000;
+  transition: opacity 0.2s;
 }
 
 .navigation__auth-link:last-of-type {

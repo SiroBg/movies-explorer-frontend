@@ -1,0 +1,42 @@
+.saved-movies {
+  flex: 1 0 auto;
+  max-width: 1140px;
+  width: 100%;
+  padding-bottom: 80px;
+}
+
+.saved-movies__button {
+  display: block;
+  width: 100%;
+  margin: 50px auto 0;
+  padding: 11px 0 9px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: opacity 0.2s, border-color 0.2s;
+}
+
+.saved-movies__button:hover {
+  opacity: 0.6;
+  border-color: #a5a2a2;
+}
+
+.saved-movies__button:active {
+  opacity: 0.8;
+}
+
+@media all and (max-width: 1279px) {
+  .saved-movies__button {
+    max-width: 708px;
+  }
+}
+
+@media all and (max-width: 767px) {
+  .saved-movies__button {
+    max-width: 300px;
+  }
+}

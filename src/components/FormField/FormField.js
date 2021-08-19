@@ -6,19 +6,31 @@ function FormField({
   placeholder,
   minLength,
   maxLength,
+  onChange,
+  value,
+  name,
+  errorText,
+  disabled,
 }) {
   return (
     <label className="form-field">
       {fieldName}
       <input
-        className="form-field__input"
+        className={`form-field__input ${
+          errorText ? 'form-field__input_invalid' : ''
+        }`}
         type={fieldType}
         minLength={minLength}
         maxLength={maxLength}
         placeholder={placeholder}
         required
+        name={name}
+        onChange={onChange}
+        value={value}
+        autoComplete="off"
+        disabled={disabled}
       />
-      <FormError errorText="текст ошибки валидации" />
+      <FormError errorText={errorText} isActive={errorText} />
     </label>
   );
 }

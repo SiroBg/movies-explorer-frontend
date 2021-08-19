@@ -58,6 +58,7 @@
 .about-me__social-link {
   text-decoration: none;
   color: #000;
+  transition: opacity 0.2s;
 }
 
 .about-me__social-link:hover {

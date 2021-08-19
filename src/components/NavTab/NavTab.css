@@ -17,6 +17,7 @@
   text-decoration: none;
   background-color: #e8e8e8;
   border-radius: 10px;
+  transition: background-color 0.2s, opacity 0.2s;
 }
 
 .navtab__link:last-of-type {

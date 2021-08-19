@@ -1,0 +1,15 @@
+.response-message {
+  display: block;
+  margin-top: auto;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12px;
+  text-align: center;
+  color: #ff3055;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.response-message_active {
+  opacity: 1;
+}

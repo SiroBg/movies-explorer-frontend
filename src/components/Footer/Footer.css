@@ -49,6 +49,7 @@
 .footer__socials-link {
   text-decoration: none;
   color: #000;
+  transition: opacity 0.2s;
 }
 
 .footer__socials-link:hover {

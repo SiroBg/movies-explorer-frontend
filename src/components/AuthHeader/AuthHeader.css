@@ -1,6 +1,8 @@
 .auth-header__link {
   display: block;
+  width: 38px;
   margin-bottom: 40px;
+  transition: opacity 0.2s;
 }
 
 .auth-header__logo {
@@ -26,11 +28,7 @@
 
 @media all and (max-width: 767px) {
   .auth-header__link {
-    margin-bottom: 50px;
-  }
-
-  .auth-header__logo {
-    margin: 0 auto;
+    margin: 0 auto 50px;
   }
 
   .auth-header__title {

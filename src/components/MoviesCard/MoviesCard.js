@@ -1,4 +1,16 @@
-function MoviesCard({ movie, cardType, isSaved }) {
+function MoviesCard({ movie, moviesType, onMovieBtn, savedMoives }) {
+  function handleMovieClassName() {
+    if (moviesType === 'searchMovies') {
+      const isSaved = savedMoives.some((m) => m.movieId === movie.movieId);
+      return isSaved ? 'movies-card__button_type_saved' : '';
+    }
+    return 'movies-card__button_type_saved-movies';
+  }
+
+  function handleMovieBtn() {
+    onMovieBtn(movie);
+  }
+
   return (
     <li className="movies-card">
       <div className="movies-card__container">
@@ -8,18 +20,22 @@ function MoviesCard({ movie, cardType, isSaved }) {
         </span>
         <button
           type="button"
-          className={`movies-card__button ${
-            cardType === 'savedMovies'
-              ? 'movies-card__button_type_saved-movies'
-              : ''
-          } ${isSaved ? 'movies-card__button_type_saved' : ''}`}
+          className={`movies-card__button ${handleMovieClassName()}`}
+          onClick={handleMovieBtn}
         />
       </div>
-      <img
-        className="movies-card__image"
-        src={movie.image.url}
-        alt={movie.nameRU}
-      />
+      <a
+        className="movies-card__trailer-link"
+        href={movie.trailer}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <img
+          className="movies-card__image"
+          src={movie.image}
+          alt={movie.nameRU}
+        />
+      </a>
     </li>
   );
 }
