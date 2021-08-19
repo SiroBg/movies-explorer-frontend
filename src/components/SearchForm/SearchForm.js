@@ -2,7 +2,13 @@ import { useEffect } from 'react';
 import useFormAndValidation from '../../hooks/useFormValidation';
 import FormError from '../FormError/FormError';
 
-function SearchForm({ onSearch, onCheckbox, moviesType, isMovieListLoading }) {
+function SearchForm({
+  onSearch,
+  onCheckbox,
+  moviesType,
+  isMovieListLoading,
+  isSearchActive,
+}) {
   const formAndValidation = useFormAndValidation();
 
   function setLastSearchValue() {
@@ -17,6 +23,18 @@ function SearchForm({ onSearch, onCheckbox, moviesType, isMovieListLoading }) {
   useEffect(() => {
     setLastSearchValue();
   }, []);
+
+  useEffect(() => {
+    handleSavedMoviesSearch();
+  }, [isSearchActive]);
+
+  function handleSavedMoviesSearch() {
+    if (!isSearchActive && moviesType === 'savedMovies') {
+      formAndValidation.setValues({
+        searchValue: '',
+      });
+    }
+  }
 
   function handleSubmit(e) {
     e.preventDefault();

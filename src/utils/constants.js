@@ -8,6 +8,8 @@ const DEVICE_SETTINGS = {
   mobile: { width: 320, moviesAmount: 5, showStep: 1 },
 };
 const NAME_REGEXP = /^[A-Za-zА-Яа-я-\sёЁ]{2,30}$/;
+const TRAILER_LINK_PLACEHOLDER =
+  'https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley';
 
 export {
   BASE_URL,
@@ -16,4 +18,5 @@ export {
   DEVICE_SETTINGS,
   BASE_MAIN_URL,
   NAME_REGEXP,
+  TRAILER_LINK_PLACEHOLDER,
 };

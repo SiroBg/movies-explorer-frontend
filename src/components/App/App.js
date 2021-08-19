@@ -106,6 +106,8 @@ function App() {
             return m.owner === userInfo._id;
           })
         );
+        setIsLoggedIn(true);
+        history.push('/movies');
       })
       .catch((err) => console.log(err));
   }
@@ -114,8 +116,6 @@ function App() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       getInitialData();
-      setIsLoggedIn(true);
-      history.push('/movies');
     }
   }
 

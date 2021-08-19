@@ -9,13 +9,19 @@ function SavedMovies({ isLoggedIn, searchedMovies, onMovieBtn }) {
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [shortMovieCheckBox, setShortMovieCheckBox] = useState(false);
   const movieFilter = handleMovieSearch();
-  const showResults = searchedMovies.length !== 0;
+  const showResults = searchedMovies.length !== 0 || isSearchActive;
 
   function handleRenderMovies() {
     if (isSearchActive) {
       return filteredMovies;
     }
     return searchedMovies;
+  }
+
+  function renderMovies() {
+    return shortMovieCheckBox
+      ? movieFilter.filterShortMovies(handleRenderMovies())
+      : handleRenderMovies();
   }
 
   function onSavedMoviesSearch(searchValue) {
@@ -34,7 +40,11 @@ function SavedMovies({ isLoggedIn, searchedMovies, onMovieBtn }) {
   function renderReturnResultBtn() {
     if (isSearchActive) {
       return (
-        <button type="button" onClick={onReturnResultClick}>
+        <button
+          className="saved-movies__button"
+          type="button"
+          onClick={onReturnResultClick}
+        >
           Показать все фильмы
         </button>
       );
@@ -45,17 +55,25 @@ function SavedMovies({ isLoggedIn, searchedMovies, onMovieBtn }) {
     setIsSearchActive(false);
   }
 
+  function onMovieBtnClick(movie) {
+    setFilteredMovies(
+      filteredMovies.filter((m) => m.movieId !== movie.movieId)
+    );
+    onMovieBtn(movie);
+  }
+
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
       <main className="saved-movies">
         <MoviesCardList
           moviesType="savedMovies"
-          searchedMovies={handleRenderMovies()}
-          onMovieBtn={onMovieBtn}
+          searchedMovies={renderMovies()}
+          onMovieBtn={onMovieBtnClick}
           showResults={showResults}
           onSearch={onSavedMoviesSearch}
           onCheckbox={onShortMovieCheckBox}
+          isSearchActive={isSearchActive}
         />
         {renderReturnResultBtn()}
       </main>

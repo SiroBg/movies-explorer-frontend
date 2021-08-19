@@ -1,4 +1,8 @@
-import { SHORT_MOVIE_LENGTH, BASE_URL } from '../utils/constants';
+import {
+  SHORT_MOVIE_LENGTH,
+  BASE_URL,
+  TRAILER_LINK_PLACEHOLDER,
+} from '../utils/constants';
 
 export default function handleMovieSearch() {
   function checkMovieNameAndDescription(movie, searchValue) {
@@ -24,9 +28,9 @@ export default function handleMovieSearch() {
         year: movie.year,
         description: movie.description,
         image: BASE_URL + movie.image.url,
-        trailer: movie.trailerLink,
+        trailer: movie.trailerLink || TRAILER_LINK_PLACEHOLDER,
         nameRU: movie.nameRU,
-        nameEN: movie.nameEN,
+        nameEN: movie.nameEN || movie.nameRU,
         thumbnail: BASE_URL + movie.image.formats.thumbnail.url,
         movieId: movie.id,
       };
