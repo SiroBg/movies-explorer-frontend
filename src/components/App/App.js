@@ -18,6 +18,7 @@ function App() {
   const [showResults, setShowResults] = useState(false);
   const [isMovieListLoading, setIsMovieListLoading] = useState(false);
   const [apiError, setApiError] = useState(false);
+  const [initialMovies, setInitialMovies] = useState([]);
   const [beatfilmMoviesSearch, setBeatfilmMoviesSearch] = useState([]);
   const [isRequestLoading, setIsRequestLoading] = useState(false);
 
@@ -31,6 +32,7 @@ function App() {
 
   useEffect(() => {
     checkToken();
+    getInitialMovies();
   }, []);
 
   function resetResponseMessage() {
@@ -112,6 +114,21 @@ function App() {
       .catch((err) => console.log(err));
   }
 
+  function getInitialMovies() {
+    moviesApi
+      .getMovies()
+      .then((movies) => {
+        setInitialMovies(movies);
+        setApiError(false);
+      })
+      .catch((err) => {
+        setInitialMovies([]);
+        setShowResults(true);
+        setApiError(true);
+        console.log(err);
+      });
+  }
+
   function checkToken() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
@@ -126,31 +143,21 @@ function App() {
   function onBeatfilmSearch(searchValue) {
     setShowResults(false);
     setIsMovieListLoading(true);
-    moviesApi
-      .getMovies()
-      .then((movies) => {
-        setShowResults(true);
-        setApiError(false);
-        setBeatfilmMoviesSearch(
-          movieSearch.filterMoviesAndSetRightFormat(movies, searchValue)
-        );
-        localStorage.setItem(
-          'lastSearch',
-          JSON.stringify({
-            movies: movieSearch.filterMoviesAndSetRightFormat(
-              movies,
-              searchValue
-            ),
-            value: searchValue,
-          })
-        );
+    setBeatfilmMoviesSearch(
+      movieSearch.filterMoviesAndSetRightFormat(initialMovies, searchValue)
+    );
+    localStorage.setItem(
+      'lastSearch',
+      JSON.stringify({
+        movies: movieSearch.filterMoviesAndSetRightFormat(
+          initialMovies,
+          searchValue
+        ),
+        value: searchValue,
       })
-      .catch((err) => {
-        setShowResults(true);
-        setApiError(true);
-        console.log(err);
-      })
-      .finally(() => setIsMovieListLoading(false));
+    );
+    setIsMovieListLoading(false);
+    setShowResults(true);
   }
 
   function getLastSearch() {

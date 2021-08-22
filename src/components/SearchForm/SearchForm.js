@@ -39,7 +39,9 @@ function SearchForm({
   function handleSubmit(e) {
     e.preventDefault();
     formAndValidation.setIsValid(e.target.checkValidity());
-    onSearch(formAndValidation.values.searchValue);
+    if (formAndValidation.values.searchValue) {
+      onSearch(formAndValidation.values.searchValue);
+    }
   }
 
   return (
