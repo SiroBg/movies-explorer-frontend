@@ -21,7 +21,7 @@ function App() {
   const [initialMovies, setInitialMovies] = useState([]);
   const [beatfilmMoviesSearch, setBeatfilmMoviesSearch] = useState([]);
   const [isRequestLoading, setIsRequestLoading] = useState(false);
-
+  const [isFirstSearch, setIsFirstSearch] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [savedMoives, setSavedMovies] = useState([]);
@@ -32,7 +32,6 @@ function App() {
 
   useEffect(() => {
     checkToken();
-    getInitialMovies();
   }, []);
 
   function resetResponseMessage() {
@@ -114,21 +113,6 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  function getInitialMovies() {
-    moviesApi
-      .getMovies()
-      .then((movies) => {
-        setInitialMovies(movies);
-        setApiError(false);
-      })
-      .catch((err) => {
-        setInitialMovies([]);
-        setShowResults(true);
-        setApiError(true);
-        console.log(err);
-      });
-  }
-
   function checkToken() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
@@ -140,24 +124,41 @@ function App() {
     setIsInfoTooltipOpen(false);
   }
 
-  function onBeatfilmSearch(searchValue) {
-    setShowResults(false);
-    setIsMovieListLoading(true);
+  function handleMovies(movies, searchValue) {
     setBeatfilmMoviesSearch(
-      movieSearch.filterMoviesAndSetRightFormat(initialMovies, searchValue)
+      movieSearch.filterMoviesAndSetRightFormat(movies, searchValue)
     );
     localStorage.setItem(
       'lastSearch',
       JSON.stringify({
-        movies: movieSearch.filterMoviesAndSetRightFormat(
-          initialMovies,
-          searchValue
-        ),
+        movies: movieSearch.filterMoviesAndSetRightFormat(movies, searchValue),
         value: searchValue,
       })
     );
-    setIsMovieListLoading(false);
     setShowResults(true);
+  }
+
+  function onBeatfilmSearch(searchValue) {
+    setShowResults(false);
+    if (isFirstSearch) {
+      setIsMovieListLoading(true);
+      return moviesApi
+        .getMovies()
+        .then((movies) => {
+          setInitialMovies(movies);
+          handleMovies(movies, searchValue);
+          setApiError(false);
+          setIsFirstSearch(false);
+        })
+        .catch((err) => {
+          setInitialMovies([]);
+          setShowResults(true);
+          setApiError(true);
+          console.log(err);
+        })
+        .finally(() => setIsMovieListLoading(false));
+    }
+    handleMovies(initialMovies, searchValue);
   }
 
   function getLastSearch() {
